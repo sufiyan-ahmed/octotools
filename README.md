@@ -46,7 +46,7 @@ Excited to have a tutorial video for OctoTools covered by [Discover AI](https://
 
 <div align="center">
   <a href="https://www.youtube.com/watch?v=4828sGfx7dk">
-    <img src="https://img.youtube.com/vi/4828sGfx7dk/maxresdefault.jpg" alt="OctoTools Tutorial" width="600">
+    <img src="https://img.youtube.com/vi/4828sGfx7dk/maxresdefault.jpg" alt="OctoTools Tutorial" width="100%">
   </a>
 </div>
 
