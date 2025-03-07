@@ -21,12 +21,35 @@
 [![GitHub license](https://img.shields.io/badge/License-MIT-green.svg?logo=github)](https://lbesson.mit-license.org/)
 [![Arxiv](https://img.shields.io/badge/arXiv-2502.11271-B31B1B.svg?logo=arxiv)](https://arxiv.org/abs/2502.11271)
 [![Huggingface Demo](https://img.shields.io/badge/Huggingface-Demo-FFD21E.svg?logo=huggingface)](https://huggingface.co/spaces/OctoTools/octotools)
+[![YouTube](https://img.shields.io/badge/YouTube-Tutorial-FF0000?logo=youtube)](https://www.youtube.com/watch?v=4828sGfx7dk)
 [![Tool Cards](https://img.shields.io/badge/Tool_Cards-OctoTools-2176BC?logo=octopusdeploy)](https://octotools.github.io/#tool-cards)
 [![Visualization](https://img.shields.io/badge/Visualization-OctoTools-D41544?logo=octopusdeploy)](https://octotools.github.io/#visualization)
 [![Coverage](https://img.shields.io/badge/Coverage-OctoTools-2176BC.svg?logo=x)](https://x.com/lupantech/status/1892260474320015861)
-[![Discord](https://img.shields.io/badge/Discord-OctoTools-D41544?logo=discord)](https://discord.gg/NMJx66DC)
+[![Discord](https://img.shields.io/badge/Discord-OctoTools-D41544?logo=discord)](https://discord.gg/JQjpHDSM)
 
 <!--- BADGES: END --->
+
+
+## Updates
+
+- **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/JQjpHDSM) to get started!
+
+- **Coming soon** 🚀: Support for a broader range of LLM engines is on the way! Stay tuned for updates.
+
+- **2025-03-08** 📺: Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
+
+- **2025-02-16** 📄: Our paper is now available as a preprint on ArXiv! Read it [here](https://arxiv.org/abs/2502.11271)!
+
+## YouTube Tutorial
+
+Excited to have a tutorial video for OctoTools covered by [Discover AI](https://www.youtube.com/@code4AI) at YouTube!
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=4828sGfx7dk">
+    <img src="https://img.youtube.com/vi/4828sGfx7dk/maxresdefault.jpg" alt="OctoTools Tutorial" width="600">
+  </a>
+</div>
+
 
 ## Introduction
 
