@@ -6,12 +6,17 @@ import sys
 from io import StringIO
 import contextlib
 
-
+import threading
 from octotools.tools.base import BaseTool
 from octotools.engine.openai import ChatOpenAI
 
 import signal
 from contextlib import contextmanager
+
+import platform
+def is_windows_os():
+    system=platform.system()
+    return system == 'Windows'
 
 # Custom exception for code execution timeout
 class TimeoutException(Exception):
@@ -20,19 +25,32 @@ class TimeoutException(Exception):
 # Custom context manager for code execution timeout
 @contextmanager
 def timeout(seconds):
-    def timeout_handler(signum, frame):
-        raise TimeoutException("Code execution timed out")
-
-    # Set the timeout handler
-    original_handler = signal.signal(signal.SIGALRM, timeout_handler)
-    signal.alarm(seconds)
     
-    try:
-        yield
-    finally:
-        # Restore the original handler and disable the alarm
-        signal.alarm(0)
-        signal.signal(signal.SIGALRM, original_handler)
+    if is_windows_os():
+        # Windows timeout using threading.Timer
+        def raise_timeout():
+            raise TimeoutException("Code execution timed out")
+        timer = threading.Timer(seconds, raise_timeout)
+        timer.start()
+        try:
+            yield
+        finally:
+            timer.cancel()
+            
+    else:
+        def timeout_handler(signum, frame):
+            raise TimeoutException("Code execution timed out")
+
+        # Set the timeout handler
+        original_handler = signal.signal(signal.SIGALRM, timeout_handler)
+        signal.alarm(seconds)
+        
+        try:
+            yield
+        finally:
+            # Restore the original handler and disable the alarm
+            signal.alarm(0)
+            signal.signal(signal.SIGALRM, original_handler)
 
 
 class Python_Code_Generator_Tool(BaseTool):
