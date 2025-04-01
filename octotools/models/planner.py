@@ -3,15 +3,15 @@ import re
 from PIL import Image
 from typing import Dict, Any, List, Tuple
 
-from octotools.engine.openai import ChatOpenAI
+from octotools.engine.factory import create_llm_engine
 from octotools.models.memory import Memory
 from octotools.models.formatters import QueryAnalysis, NextStep, MemoryVerification
 
 class Planner:
     def __init__(self, llm_engine_name: str, toolbox_metadata: dict = None, available_tools: List = None):
         self.llm_engine_name = llm_engine_name
-        self.llm_engine_mm = ChatOpenAI(model_string=llm_engine_name, is_multimodal=True)
-        self.llm_engine = ChatOpenAI(model_string=llm_engine_name, is_multimodal=False)
+        self.llm_engine_mm = create_llm_engine(model_string=llm_engine_name, is_multimodal=True)
+        self.llm_engine = create_llm_engine(model_string=llm_engine_name, is_multimodal=False)
         self.toolbox_metadata = toolbox_metadata if toolbox_metadata is not None else {}
         self.available_tools = available_tools if available_tools is not None else []
 
@@ -90,7 +90,7 @@ Please present your analysis in a clear, structured format.
 
         return str(self.query_analysis).strip()
 
-    def extract_context_subgoal_and_tool(self, response: NextStep) -> Tuple[str, str, str]:
+    def extract_context_subgoal_and_tool(self, response: Any) -> Tuple[str, str, str]:
 
         def normalize_tool_name(tool_name: str) -> str:
             # Normalize the tool name to match the available tools
@@ -100,15 +100,31 @@ Please present your analysis in a clear, structured format.
             return "No matched tool given: " + tool_name
         
         try:
-            context = response.context.strip()
-            sub_goal = response.sub_goal.strip()
-            tool_name = normalize_tool_name(response.tool_name.strip())
-            return context, sub_goal, tool_name
+            if isinstance(response, NextStep):
+                context = response.context.strip()
+                sub_goal = response.sub_goal.strip()
+                tool_name = response.tool_name.strip()
+            else:
+                text = response.replace("**", "")
+
+                # Pattern to match the exact format
+                pattern = r"Context:\s*(.*?)Sub-Goal:\s*(.*?)Tool Name:\s*(.*?)(?=\n\n|\Z)"
+                
+                # Find all matches
+                matches = re.findall(pattern, text, re.DOTALL)
+
+                # Return the last match (most recent/relevant)
+                context, sub_goal, tool_name = matches[-1]
+                context = context.strip()
+                sub_goal = sub_goal.strip()
+            tool_name = normalize_tool_name(tool_name)
         except Exception as e:
             print(f"Error extracting context, sub-goal, and tool name: {str(e)}")
             return None, None, None
+
+        return context, sub_goal, tool_name
         
-    def generate_next_step(self, question: str, image: str, query_analysis: str, memory: Memory, step_count: int, max_step_count: int) -> NextStep:
+    def generate_next_step(self, question: str, image: str, query_analysis: str, memory: Memory, step_count: int, max_step_count: int) -> Any:
         prompt_generate_next_step = f"""
 Task: Determine the optimal next step to address the given query based on the provided analysis, available tools, and previous steps taken.
 
@@ -143,15 +159,24 @@ Instructions:
 
 4. Formulate a specific, achievable sub-goal for the selected tool that maximizes progress towards answering the query.
 
-Output Format:
-<justification>: detailed explanation of why the selected tool is the best choice for the next step, considering the context and previous outcomes.
-<context>: MUST include ALL necessary information for the tool to function, structured as follows:
-    * Relevant data from previous steps
-    * File names or paths created or used in previous steps (list EACH ONE individually)
-    * Variable names and their values from previous steps' results
-    * Any other context-specific information required by the tool
-<sub_goal>: a specific, achievable objective for the tool, based on its metadata and previous outcomes. It MUST contain any involved data, file names, and variables from Previous Steps and Their Results that the tool can act upon.
-<tool_name>: MUST be the exact name of a tool from the available tools list.
+Response Format:
+Your response MUST follow this structure:
+1. Justification: Explain your choice in detail.
+2. Context, Sub-Goal, and Tool: Present the context, sub-goal, and the selected tool ONCE with the following format:
+
+Context: <context>
+Sub-Goal: <sub_goal>
+Tool Name: <tool_name>
+
+Where:
+- <context> MUST include ALL necessary information for the tool to function, structured as follows:
+  * Relevant data from previous steps
+  * File names or paths created or used in previous steps (list EACH ONE individually)
+  * Variable names and their values from previous steps' results
+  * Any other context-specific information required by the tool
+- <sub_goal> is a specific, achievable objective for the tool, based on its metadata and previous outcomes.
+It MUST contain any involved data, file names, and variables from Previous Steps and Their Results that the tool can act upon.
+- <tool_name> MUST be the exact name of a tool from the available tools list.
 
 Rules:
 - Select only ONE tool for this step.
@@ -159,17 +184,21 @@ Rules:
 - The Context section MUST include ALL necessary information for the tool to function, including ALL relevant file paths, data, and variables from previous steps.
 - The tool name MUST exactly match one from the available tools list: {self.available_tools}.
 - Avoid redundancy by considering previous steps and building on prior results.
+- Your response MUST conclude with the Context, Sub-Goal, and Tool Name sections IN THIS ORDER, presented ONLY ONCE.
+- Include NO content after these three sections.
 
 Example (do not copy, use only as reference):
-<justification>: [Your detailed explanation here]
-<context>: Image path: "example/image.jpg", Previous detection results: [list of objects]
-<sub_goal>: Detect and count the number of specific objects in the image "example/image.jpg"
-<tool_name>: Object_Detector_Tool
+Justification: [Your detailed explanation here]
+Context: Image path: "example/image.jpg", Previous detection results: [list of objects]
+Sub-Goal: Detect and count the number of specific objects in the image "example/image.jpg"
+Tool Name: Object_Detector_Tool
+
+Remember: Your response MUST end with the Context, Sub-Goal, and Tool Name sections, with NO additional content afterwards.
 """
         next_step = self.llm_engine(prompt_generate_next_step, response_format=NextStep)
         return next_step
 
-    def verificate_context(self, question: str, image: str, query_analysis: str, memory: Memory) -> MemoryVerification:
+    def verificate_context(self, question: str, image: str, query_analysis: str, memory: Memory) -> Any:
         image_info = self.get_image_info(image)
 
         prompt_memory_verification = f"""
@@ -218,10 +247,20 @@ Detailed Instructions:
    Based on your thorough analysis, decide if the memory is complete and accurate enough to generate the final output, or if additional tool usage is necessary.
 
 Response Format:
-<analysis>: Provide a detailed analysis of why the memory is sufficient. Reference specific information from the memory and explain its relevance to each aspect of the task. Address how each main point of the query has been satisfied.
-<stop_signal>: Whether to stop the problem solving process and proceed to generating the final output.
-    * "True": if the memory is sufficient for addressing the query to proceed and no additional available tools need to be used. If ONLY manual verification without tools is needed, choose "True".
-    * "False": if the memory is insufficient and needs more information from additional tool usage.
+
+If the memory is complete, accurate, AND verified:
+Explanation: 
+<Provide a detailed explanation of why the memory is sufficient. Reference specific information from the memory and explain its relevance to each aspect of the task. Address how each main point of the query has been satisfied.>
+
+Conclusion: STOP
+
+If the memory is incomplete, insufficient, or requires further verification:
+Explanation: 
+<Explain in detail why the memory is incomplete. Identify specific information gaps or unaddressed aspects of the query. Suggest which additional tools could be used, how they might contribute, and why their input is necessary for a comprehensive response.>
+
+Conclusion: CONTINUE
+
+IMPORTANT: Your response MUST conclude with either 'Conclusion: STOP' or 'Conclusion: CONTINUE'. Ensure your explanation thoroughly justifies this conclusion.
 """
 
         input_data = [prompt_memory_verification]
@@ -237,11 +276,31 @@ Response Format:
 
         return stop_verification
 
-    def extract_conclusion(self, response: MemoryVerification) -> str:
-        if response.stop_signal:
-            return 'STOP'
+    def extract_conclusion(self, response: Any) -> str:
+        if isinstance(response, MemoryVerification):
+            stop_signal = response.stop_signal
+            if stop_signal:
+                return 'STOP'
+            else:
+                return 'CONTINUE'
         else:
-            return 'CONTINUE'
+            pattern = r'conclusion:?\s*\*?\s*(\w+)'
+            # Search for the pattern
+            match = re.search(pattern, response, re.IGNORECASE | re.DOTALL)
+            
+            if match:
+                conclusion = match.group(1).upper()
+                if conclusion in ['STOP', 'CONTINUE']:
+                    return conclusion
+            
+            # If no valid conclusion found, search for STOP or CONTINUE anywhere in the text
+            if 'stop' in response:
+                return 'STOP'
+            elif 'continue' in response:
+                return 'CONTINUE'
+            else:
+                print("No valid conclusion (STOP or CONTINUE) found in the response. Continuing...")
+                return 'CONTINUE'
 
     def generate_final_output(self, question: str, image: str, memory: Memory) -> str:
         image_info = self.get_image_info(image)
