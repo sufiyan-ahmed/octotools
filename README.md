@@ -34,13 +34,17 @@
 
 - **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/JQjpHDSM) to get started!
 
-- **Coming soon** 🚀: Support for a broader range of LLM engines is on the way! Stay tuned for updates.
+- **2025-04-15** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://octotools.github.io/#llm-engines).
 
 - **2025-03-08** 📺: Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
 
 - **2025-02-16** 📄: Our paper is now available as a preprint on ArXiv! Read it [here](https://arxiv.org/abs/2502.11271)!
 
-## YouTube Tutorial
+
+## Get Started
+
+
+### YouTube Tutorial
 
 Excited to have a tutorial video for OctoTools covered by [Discover AI](https://www.youtube.com/@code4AI) at YouTube!
 
@@ -51,7 +55,7 @@ Excited to have a tutorial video for OctoTools covered by [Discover AI](https://
 </div>
 
 
-## Introduction
+### Introduction
 
 We introduce **OctoTools**, a training-free, user-friendly, and easily extensible open-source agentic framework designed to tackle complex reasoning across diverse domains. **OctoTools** introduces standardized **tool cards** to encapsulate tool functionality, a **planner** for both high-level and low-level planning, and an **executor** to carry out tool usage. 
 
@@ -66,6 +70,18 @@ We validate **OctoTools**’ generality across 16 diverse tasks (including MathV
     <img src="assets/result/main_scores_bar_chart.png" width="50%">
     <!-- Text. -->
 </p>
+
+
+### Supported LLM Engines
+
+We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, and more.
+
+| Model Family | Supported Engines | Official Model List |
+|--------------|-------------------|--------------------|
+| OpenAI | Most chat and reasoning models, including `gpt-3.5-turbo`,  `gpt-4`, `gpt-4-turbo`, `gpt-4o`, `gpt-4o-mini`,  `gpt-4.1`, `gpt-4.1-nano`, `o1`, `o1-preview`, `o1-mini`, `o1-pro`, `o3` | [OpenAI Models](https://platform.openai.com/docs/models) |
+| Anthropic | `claude-3-5-sonnet-20240620`, `claude-3-opus-20240229`, `claude-3-haiku-20240307` | [Anthropic Models](https://docs.anthropic.com/en/docs/models) |
+| Google | `gemini-1.5-pro-002`, `gemini-1.0-pro-002` | [Google Models](https://ai.google.dev/models) | 
+| Together | `llama-3.1-70b-instruct`, `llama-3.1-8b-instruct` | [Together Models](https://docs.together.xyz/docs/models) |
 
 ## Installation
 

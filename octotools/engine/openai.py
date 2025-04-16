@@ -29,8 +29,21 @@ from pydantic import BaseModel
 class DefaultFormat(BaseModel):
     response: str
 
-# FIXME Define global constant for structured models
-OPENAI_STRUCTURED_MODELS = ['gpt-4o', 'gpt-4o-2024-08-06','gpt-4o-mini',  'gpt-4o-mini-2024-07-18']
+
+def validate_structured_output_model(model_string: str):
+    # Ref: https://platform.openai.com/docs/guides/structured-outputs
+    return any(x in model_string for x in ["gpt-4o", "gpt-4o-mini"])
+
+def validate_chat_model(model_string: str):
+    return any(x in model_string for x in ["gpt"])
+
+def validate_reasoning_model(model_string: str):
+    # Ref: https://platform.openai.com/docs/guides/reasoning
+    return any(x in model_string for x in ["o1"]) and not validate_o3_reasoning_model(model_string)
+
+def validate_o3_reasoning_model(model_string: str):
+    # Ref: https://platform.openai.com/docs/guides/reasoning
+    return any(x in model_string for x in ["o1-pro", "o3"])
 
 
 class ChatOpenAI(EngineLM, CachedEngine):
@@ -41,37 +54,41 @@ class ChatOpenAI(EngineLM, CachedEngine):
         model_string="gpt-4o-mini-2024-07-18",
         system_prompt=DEFAULT_SYSTEM_PROMPT,
         is_multimodal: bool=False,
-        enable_cache: bool=True, # disable cache for now
+        use_cache: bool=True, # disable cache for now
         **kwargs):
         """
         :param model_string:
         :param system_prompt:
         :param is_multimodal:
         """
-        if enable_cache:
+
+        self.model_string = model_string
+        self.use_cache = use_cache
+        self.system_prompt = system_prompt
+        self.is_multimodal = is_multimodal
+
+        self.is_structured_output_model = validate_structured_output_model(self.model_string)
+        self.is_chat_model = validate_chat_model(self.model_string)
+        self.is_reasoning_model = validate_reasoning_model(self.model_string)
+        self.is_o3_reasoning_model = validate_o3_reasoning_model(self.model_string)
+
+        if self.use_cache:
+            print(f"!! Cache enabled for model: {self.model_string}")
             root = platformdirs.user_cache_dir("octotools")
-            cache_path = os.path.join(root, f"cache_openai_{model_string}.db")
-            
+            cache_path = os.path.join(root, f"cache_openai_{self.model_string}.db")
             self.image_cache_dir = os.path.join(root, "image_cache")
             os.makedirs(self.image_cache_dir, exist_ok=True)
-
             super().__init__(cache_path=cache_path)
-
-        self.system_prompt = system_prompt
+        else:
+            print(f"!! Cache disabled for model: {self.model_string}")
+        
         if os.getenv("OPENAI_API_KEY") is None:
             raise ValueError("Please set the OPENAI_API_KEY environment variable if you'd like to use OpenAI models.")
         
         self.client = OpenAI(
             api_key=os.getenv("OPENAI_API_KEY"),
         )
-        self.model_string = model_string
-        self.is_multimodal = is_multimodal
-        self.enable_cache = enable_cache
 
-        if enable_cache:
-            print(f"!! Cache enabled for model: {self.model_string}")
-        else:
-            print(f"!! Cache disabled for model: {self.model_string}")
 
     @retry(wait=wait_random_exponential(min=1, max=5), stop=stop_after_attempt(5))
     def generate(self, content: Union[str, List[Union[str, bytes]]], system_prompt=None, **kwargs):
@@ -125,25 +142,14 @@ class ChatOpenAI(EngineLM, CachedEngine):
 
         sys_prompt_arg = system_prompt if system_prompt else self.system_prompt
 
-        if self.enable_cache:
+        if self.use_cache:
             cache_key = sys_prompt_arg + prompt
             cache_or_none = self._check_cache(cache_key)
             if cache_or_none is not None:
                 return cache_or_none
-
-        if self.model_string in ['o1', 'o1-mini']: # only supports base response currently
-            response = self.client.beta.chat.completions.parse(
-                model=self.model_string,
-                messages=[
-                    {"role": "user", "content": prompt},
-                ],
-                max_completion_tokens=max_tokens
-            )
-            if response.choices[0].finishreason == "length":
-                response = "Token limit exceeded"
-            else:
-                response = response.choices[0].message.parsed
-        elif self.model_string in OPENAI_STRUCTURED_MODELS and response_format is not None:
+                
+        # Chat models given structured output format
+        if self.is_structured_output_model and response_format is not None:
             response = self.client.beta.chat.completions.parse(
                 model=self.model_string,
                 messages=[
@@ -159,7 +165,9 @@ class ChatOpenAI(EngineLM, CachedEngine):
                 response_format=response_format
             )
             response = response.choices[0].message.parsed
-        else:
+
+        # Chat models without structured outputs
+        elif self.is_chat_model and response_format is None:
             response = self.client.chat.completions.create(
                 model=self.model_string,
                 messages=[
@@ -175,7 +183,37 @@ class ChatOpenAI(EngineLM, CachedEngine):
             )
             response = response.choices[0].message.content
 
-        if self.enable_cache:
+        # Reasoning models: currently only supports base response
+        elif self.is_reasoning_model:
+            print(f"Using reasoning model: {self.model_string}")
+            response = self.client.chat.completions.create(
+                model=self.model_string,
+                messages=[
+                    {"role": "user", "content": prompt},
+                ],
+                max_completion_tokens=max_tokens
+            )
+            # Workaround for handling length finish reason
+            if "finishreason" in response.choices[0] and response.choices[0].finishreason == "length":
+                response = "Token limit exceeded"
+            else:
+                response = response.choices[0].message.content
+
+        elif self.is_o3_reasoning_model:
+            # only support /v1/completions response format for o3-type reasoning models
+            print(f"Using o3-type reasoning model: {self.model_string}")
+            response = self.client.responses.create(
+                model=self.model_string,
+                input=prompt,
+                reasoning={
+                    "effort": "medium"
+                }
+            )
+            breakpoint()
+            response = response.output[1].content[0].text
+
+
+        if self.use_cache:
             self._save_cache(cache_key, response)
         return response
 
@@ -208,26 +246,14 @@ class ChatOpenAI(EngineLM, CachedEngine):
         sys_prompt_arg = system_prompt if system_prompt else self.system_prompt
         formatted_content = self._format_content(content)
 
-        if self.enable_cache:
+        if self.use_cache:
             cache_key = sys_prompt_arg + json.dumps(formatted_content)
             cache_or_none = self._check_cache(cache_key)
             if cache_or_none is not None:
                 return cache_or_none
 
-        if self.model_string in ['o1', 'o1-mini']: # only supports base response currently
-            print(f'Max tokens: {max_tokens}')
-            response = self.client.chat.completions.create(
-                model=self.model_string,
-                messages=[
-                    {"role": "user", "content": formatted_content},
-                ],
-                max_completion_tokens=max_tokens
-            )
-            if response.choices[0].finish_reason == "length":
-                response_text = "Token limit exceeded"
-            else:
-                response_text = response.choices[0].message.content
-        elif self.model_string in OPENAI_STRUCTURED_MODELS and response_format is not None:
+        # Chat models given structured output format
+        if self.is_structured_output_model and response_format is not None:
             response = self.client.beta.chat.completions.parse(
                 model=self.model_string,
                 messages=[
@@ -240,7 +266,10 @@ class ChatOpenAI(EngineLM, CachedEngine):
                 response_format=response_format
             )
             response_text = response.choices[0].message.parsed
-        else:
+
+
+        # Chat models without structured outputs
+        elif self.is_chat_model and response_format is None:
             response = self.client.chat.completions.create(
                 model=self.model_string,
                 messages=[
@@ -253,6 +282,34 @@ class ChatOpenAI(EngineLM, CachedEngine):
             )
             response_text = response.choices[0].message.content
 
-        if self.enable_cache:
+        # Reasoning models: currently only supports base response
+        elif self.is_reasoning_model:
+            response = self.client.chat.completions.create(
+                model=self.model_string,
+                messages=[
+                    {"role": "user", "content": formatted_content},
+                ],
+                max_completion_tokens=max_tokens
+            )
+            # Workaround for handling length finish reason
+            if "finishreason" in response.choices[0] and response.choices[0].finishreason == "length":
+                response = "Token limit exceeded"
+            else:
+                response = response.choices[0].message.content
+                
+        elif self.is_o3_reasoning_model:
+            # only support /v1/completions response format for o3-type reasoning models
+            print(f"Using o3-type reasoning model: {self.model_string}")
+            response = self.client.responses.create(
+                model=self.model_string,
+                input=formatted_content,
+                reasoning={
+                    "effort": "medium"
+                }
+            )
+            breakpoint()
+            response = response.output[1].content[0].text
+
+        if self.use_cache:
             self._save_cache(cache_key, response_text)
         return response_text
