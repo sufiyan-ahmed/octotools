@@ -39,11 +39,7 @@ def validate_chat_model(model_string: str):
 
 def validate_reasoning_model(model_string: str):
     # Ref: https://platform.openai.com/docs/guides/reasoning
-    return any(x in model_string for x in ["o1"]) and not validate_o3_reasoning_model(model_string)
-
-def validate_o3_reasoning_model(model_string: str):
-    # Ref: https://platform.openai.com/docs/guides/reasoning
-    return any(x in model_string for x in ["o1-pro", "o3"])
+    return any(x in model_string for x in ["o1", "o3"])
 
 
 class ChatOpenAI(EngineLM, CachedEngine):
@@ -70,7 +66,6 @@ class ChatOpenAI(EngineLM, CachedEngine):
         self.is_structured_output_model = validate_structured_output_model(self.model_string)
         self.is_chat_model = validate_chat_model(self.model_string)
         self.is_reasoning_model = validate_reasoning_model(self.model_string)
-        self.is_o3_reasoning_model = validate_o3_reasoning_model(self.model_string)
 
         if self.use_cache:
             print(f"!! Cache enabled for model: {self.model_string}")
@@ -191,27 +186,14 @@ class ChatOpenAI(EngineLM, CachedEngine):
                 messages=[
                     {"role": "user", "content": prompt},
                 ],
-                max_completion_tokens=max_tokens
+                max_completion_tokens=max_tokens,
+                reasoning_effort="medium"
             )
             # Workaround for handling length finish reason
             if "finishreason" in response.choices[0] and response.choices[0].finishreason == "length":
                 response = "Token limit exceeded"
             else:
                 response = response.choices[0].message.content
-
-        elif self.is_o3_reasoning_model:
-            # only support /v1/completions response format for o3-type reasoning models
-            print(f"Using o3-type reasoning model: {self.model_string}")
-            response = self.client.responses.create(
-                model=self.model_string,
-                input=prompt,
-                reasoning={
-                    "effort": "medium"
-                }
-            )
-            breakpoint()
-            response = response.output[1].content[0].text
-
 
         if self.use_cache:
             self._save_cache(cache_key, response)
@@ -289,26 +271,14 @@ class ChatOpenAI(EngineLM, CachedEngine):
                 messages=[
                     {"role": "user", "content": formatted_content},
                 ],
-                max_completion_tokens=max_tokens
+                max_completion_tokens=max_tokens,
+                reasoning_effort="medium"
             )
             # Workaround for handling length finish reason
             if "finishreason" in response.choices[0] and response.choices[0].finishreason == "length":
-                response = "Token limit exceeded"
+                response_text = "Token limit exceeded"
             else:
-                response = response.choices[0].message.content
-                
-        elif self.is_o3_reasoning_model:
-            # only support /v1/completions response format for o3-type reasoning models
-            print(f"Using o3-type reasoning model: {self.model_string}")
-            response = self.client.responses.create(
-                model=self.model_string,
-                input=formatted_content,
-                reasoning={
-                    "effort": "medium"
-                }
-            )
-            breakpoint()
-            response = response.output[1].content[0].text
+                response_text = response.choices[0].message.content
 
         if self.use_cache:
             self._save_cache(cache_key, response_text)

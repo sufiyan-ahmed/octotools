@@ -260,7 +260,7 @@ Explanation:
 
 Conclusion: CONTINUE
 
-IMPORTANT: Your response MUST conclude with either 'Conclusion: STOP' or 'Conclusion: CONTINUE'. Ensure your explanation thoroughly justifies this conclusion.
+IMPORTANT: Your response MUST end with either 'Conclusion: STOP' or 'Conclusion: CONTINUE' and nothing else. Ensure your explanation thoroughly justifies this conclusion.
 """
 
         input_data = [prompt_memory_verification]
@@ -284,12 +284,18 @@ IMPORTANT: Your response MUST conclude with either 'Conclusion: STOP' or 'Conclu
             else:
                 return 'CONTINUE'
         else:
-            pattern = r'conclusion:?\s*\*?\s*(\w+)'
+            pattern = r'conclusion\**:?\s*\**\s*(\w+)'
             # Search for the pattern
-            match = re.search(pattern, response, re.IGNORECASE | re.DOTALL)
+            # match = re.search(pattern, response, re.IGNORECASE | re.DOTALL)
             
-            if match:
-                conclusion = match.group(1).upper()
+            # if match:
+            #     conclusion = match.group(1).upper()
+            #     if conclusion in ['STOP', 'CONTINUE']:
+            #         return conclusion
+            
+            matches = list(re.finditer(pattern, response, re.IGNORECASE | re.DOTALL))
+            if matches:
+                conclusion = matches[-1].group(1).upper()
                 if conclusion in ['STOP', 'CONTINUE']:
                     return conclusion
             
