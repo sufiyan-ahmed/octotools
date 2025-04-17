@@ -2,7 +2,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-<img src="assets/octotools.svg" alt="OctoTools Logo" width="100">
+<img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/octotools.svg" alt="OctoTools Logo" width="100">
 </div>
 
 # OctoTools: An Agentic Framework with Extensible Tools for Complex Reasoning
@@ -62,13 +62,13 @@ We introduce **OctoTools**, a training-free, user-friendly, and easily extensibl
 
 **Tool cards** define tool-usage metadata and encapsulate heterogeneous tools, enabling training-free integration of new tools without additional training or framework refinement. (2) The **planner** governs both high-level and low-level planning to address the global objective and refine actions step by step. (3) The **executor** instantiates tool calls by generating executable commands and save structured results in the context. The final answer is summarized from the full trajectory in the context. Furthermore, the *task-specific toolset optimization algorithm* learns a beneficial subset of tools for downstream tasks.
 
-![framework_overall](assets/models/framework_overall.png)
-![framework_example](assets/models/framework_example.png)
+![framework_overall](https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/models/framework_overall.png)
+![framework_example](https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/models/framework_example.png)
 
 We validate **OctoTools**’ generality across 16 diverse tasks (including MathVista, MMLU-Pro, MedQA, and GAIA-Text), achieving substantial average accuracy gains of 9.3% over GPT-4o. Furthermore, **OctoTools** also outperforms AutoGen, GPT-Functions and LangChain by up to 10.6% when given the same set of tools.
 
 <p align="center">  
-    <img src="assets/result/main_scores_bar_chart.png" width="50%">
+    <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/result/main_scores_bar_chart.png" width="50%">
     <!-- Text. -->
 </p>
 
@@ -89,14 +89,14 @@ We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Ge
 Create a conda environment from the `conda.yaml` file:
 
 ```sh
-conda env create -f conda.yaml
+conda create -n octotools python=3.10
 ```
 
 Activate the environment and install requirements:
 
 ```sh
 conda activate octotools
-pip install -e .
+pip install octotools-kit
 ```
 
 Make `.env` file, and set `OPENAI_API_KEY`, `GOOGLE_API_KEY`, `GOOGLE_CX`, etc. For example:
@@ -193,7 +193,7 @@ To demonstrate the generality of our **OctoTools** framework, we conduct compreh
 
 
 <p align="center">
-    <img src="assets/result/result_table_1.png" width="100%">
+    <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/result/result_table_1.png" width="100%">
     <!-- Text. -->
 </p>
 
@@ -206,7 +206,7 @@ More results are available in the [paper](https://arxiv.org/pdf/2502.11271) or a
 We provide a set of in-depth analyses to help you understand the framework. For instance, we visualize the tool usage of **OctoTools** and its baselines  from 16 tasks. It turns out that **OctoTools** takes advantage of different external tools to address task-specific challenges. Explore more findings at our [paper](https://arxiv.org/pdf/2502.11271) or the [project page](https://octotools.github.io/#analysis).
 
 <a align="center">
-    <img src="assets/result/tool_usage_ours_baselines.png" width="100%">
+    <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/result/tool_usage_ours_baselines.png" width="100%">
     <!-- Text. -->
 </a>
 
@@ -216,7 +216,7 @@ We provide a set of example visualizations to help you understand the framework.
 
 <p align="center">  
     <a href="https://octotools.github.io/#visualization">
-        <img src="assets/result/example_visualization.png" width="80%">
+        <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/result/example_visualization.png" width="80%">
     </a>
 </p>
 
@@ -227,7 +227,7 @@ The design of each tool card is modular relative to the **OctoTools** framework,
 
 <p align="center">
     <a href="https://octotools.github.io/#tool_cards">
-        <img src="assets/models/tool_cards.png" width="100%">
+        <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/models/tool_cards.png" width="100%">
     </a>
 </p>
 
