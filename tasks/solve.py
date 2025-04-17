@@ -14,7 +14,7 @@ from octotools.models.initializer import Initializer
 from octotools.models.planner import Planner
 from octotools.models.memory import Memory
 from octotools.models.executor import Executor
-from octotools.models.utlis import make_json_serializable_truncated
+from octotools.models.utils import make_json_serializable_truncated
 
 class Solver:
     def __init__(
