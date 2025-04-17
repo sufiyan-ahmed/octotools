@@ -34,7 +34,7 @@
 
 - **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/JQjpHDSM) to get started!
 
-- **2025-04-15** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://octotools.github.io/#llm-engines).
+- **2025-04-17** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://octotools.github.io/#supported-llm-engines).
 
 - **2025-03-08** 📺: Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
 
@@ -42,6 +42,7 @@
 
 
 ## Get Started
+
 
 
 ### YouTube Tutorial
@@ -76,12 +77,12 @@ We validate **OctoTools**’ generality across 16 diverse tasks (including MathV
 
 We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, and more.
 
-| Model Family | Supported Engines | Official Model List |
-|--------------|-------------------|--------------------|
-| OpenAI | Most chat and reasoning models, including `gpt-3.5-turbo`,  `gpt-4`, `gpt-4-turbo`, `gpt-4o`, `gpt-4o-mini`,  `gpt-4.1`, `gpt-4.1-nano`, `o1`, `o1-preview`, `o1-mini`, `o1-pro`, `o3` | [OpenAI Models](https://platform.openai.com/docs/models) |
-| Anthropic | `claude-3-5-sonnet-20240620`, `claude-3-opus-20240229`, `claude-3-haiku-20240307` | [Anthropic Models](https://docs.anthropic.com/en/docs/models) |
-| Google | `gemini-1.5-pro-002`, `gemini-1.0-pro-002` | [Google Models](https://ai.google.dev/models) | 
-| Together | `llama-3.1-70b-instruct`, `llama-3.1-8b-instruct` | [Together Models](https://docs.together.xyz/docs/models) |
+| Model Family | Engines (Multi-modal) | Engines (Text-Only) | Official Model List |
+|--------------|-------------------|--------------------| -------------------- |
+| OpenAI | `gpt-4-turbo`, `gpt-4o`, `gpt-4o-mini`,  `gpt-4.1`,  `gpt-4.1-mini`, `gpt-4.1-nano`, `o1`, `o3`, `o1-pro`, `o4-mini` (soon) | `gpt-3.5-turbo`, `gpt-4`, `o1-mini`, `o3-mini` | [OpenAI Models](https://platform.openai.com/docs/models) |
+| Anthropic | `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `claude-3-opus-20240229`, `claude-3-5-sonnet-20240620`, `claude-3-5-sonnet-20241022`, `claude-3-5-haiku-20241022`, `claude-3-7-sonnet-20250219` | | [Anthropic Models](https://docs.anthropic.com/en/docs/about-claude/models/all-models) |
+| TogetherAI | Most multi-modal models, including `meta-llama/Llama-4-Scout-17B-16E-Instruct`, `Qwen/QwQ-32B`, `Qwen/Qwen2-VL-72B-Instruct` | Most text-only models, including `meta-llama/Llama-3-70b-chat-hf`, `Qwen/Qwen2-72B-Instruct` | [TogetherAI Models](https://api.together.ai/models) |
+| DeepSeek |  | `deepseek-chat`, `deepseek-reasoner` | [DeepSeek Models](https://api-docs.deepseek.com/quick_start/pricing) |
 
 ## Installation
 
@@ -324,3 +325,8 @@ We are also looking forward to your feedback and suggestions!
     ↑ Back to Top ↑
   </a>
 </p>
+
+
+### Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=octotools/octotools&type=Date)](https://www.star-history.com/#octotools/octotools&Date)

@@ -39,8 +39,11 @@ def validate_chat_model(model_string: str):
 
 def validate_reasoning_model(model_string: str):
     # Ref: https://platform.openai.com/docs/guides/reasoning
-    return any(x in model_string for x in ["o1", "o3"])
+    return any(x in model_string for x in ["o1", "o3", "o4"]) and not validate_pro_reasoning_model(model_string)
 
+def validate_pro_reasoning_model(model_string: str):
+    # Ref: https://platform.openai.com/docs/guides/reasoning
+    return any(x in model_string for x in ["o1-pro", "o3-pro", "o4-pro"])
 
 class ChatOpenAI(EngineLM, CachedEngine):
     DEFAULT_SYSTEM_PROMPT = "You are a helpful, creative, and smart assistant."
@@ -63,10 +66,10 @@ class ChatOpenAI(EngineLM, CachedEngine):
         self.system_prompt = system_prompt
         self.is_multimodal = is_multimodal
 
-        self.is_structured_output_model = validate_structured_output_model(self.model_string)
+        self.support_structured_output = validate_structured_output_model(self.model_string)
         self.is_chat_model = validate_chat_model(self.model_string)
         self.is_reasoning_model = validate_reasoning_model(self.model_string)
-
+        self.is_pro_reasoning_model = validate_pro_reasoning_model(self.model_string)
         if self.use_cache:
             print(f"!! Cache enabled for model: {self.model_string}")
             root = platformdirs.user_cache_dir("octotools")
@@ -144,7 +147,7 @@ class ChatOpenAI(EngineLM, CachedEngine):
                 return cache_or_none
                 
         # Chat models given structured output format
-        if self.is_structured_output_model and response_format is not None:
+        if self.is_chat_model and self.support_structured_output and response_format is not None:
             response = self.client.beta.chat.completions.parse(
                 model=self.model_string,
                 messages=[
@@ -162,7 +165,7 @@ class ChatOpenAI(EngineLM, CachedEngine):
             response = response.choices[0].message.parsed
 
         # Chat models without structured outputs
-        elif self.is_chat_model and response_format is None:
+        elif self.is_chat_model and (not self.support_structured_output or response_format is None):
             response = self.client.chat.completions.create(
                 model=self.model_string,
                 messages=[
@@ -194,6 +197,17 @@ class ChatOpenAI(EngineLM, CachedEngine):
                 response = "Token limit exceeded"
             else:
                 response = response.choices[0].message.content
+
+        # Reasoning models: Pro models using v1/completions
+        elif self.is_pro_reasoning_model:
+            response = self.client.responses.create(
+                model=self.model_string,
+                input=prompt,
+                reasoning={
+                    "effort": "medium"
+                },
+            )
+            response = response.output[1].content[0].text
 
         if self.use_cache:
             self._save_cache(cache_key, response)
@@ -235,7 +249,7 @@ class ChatOpenAI(EngineLM, CachedEngine):
                 return cache_or_none
 
         # Chat models given structured output format
-        if self.is_structured_output_model and response_format is not None:
+        if self.is_chat_model and self.support_structured_output and response_format is not None:
             response = self.client.beta.chat.completions.parse(
                 model=self.model_string,
                 messages=[
@@ -249,9 +263,8 @@ class ChatOpenAI(EngineLM, CachedEngine):
             )
             response_text = response.choices[0].message.parsed
 
-
         # Chat models without structured outputs
-        elif self.is_chat_model and response_format is None:
+        elif self.is_chat_model and (not self.support_structured_output or response_format is None):
             response = self.client.chat.completions.create(
                 model=self.model_string,
                 messages=[
@@ -279,6 +292,17 @@ class ChatOpenAI(EngineLM, CachedEngine):
                 response_text = "Token limit exceeded"
             else:
                 response_text = response.choices[0].message.content
+
+        # Reasoning models: Pro models using v1/completions
+        elif self.is_pro_reasoning_model:
+            response = self.client.responses.create(
+                model=self.model_string,
+                input=str(formatted_content), # NOTE: simple string conversion for now
+                reasoning={
+                    "effort": "medium"
+                },
+            )
+            response_text = response.output[1].content[0].text
 
         if self.use_cache:
             self._save_cache(cache_key, response_text)

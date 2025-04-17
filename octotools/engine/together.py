@@ -24,25 +24,37 @@ class ChatTogether(EngineLM, CachedEngine):
         self,
         model_string="meta-llama/Llama-3-70b-chat-hf",
         use_cache: bool=False,
-        system_prompt=DEFAULT_SYSTEM_PROMPT):
+        system_prompt=DEFAULT_SYSTEM_PROMPT,
+        is_multimodal: bool=False):
         """
         :param model_string:
         :param system_prompt:
+        :param is_multimodal:
         """
-        self.use_cache = use_cache  # Add this line
+        self.use_cache = use_cache
+        self.system_prompt = system_prompt
+        self.model_string = model_string
+
+        # Check if model supports multimodal inputs
+        self.is_multimodal = is_multimodal or any(x in model_string.lower() for x in [
+            "llama-4",
+            "qwen2-vl",
+            "qwen-vl",
+            "vl",
+            "visual"
+        ])
+
         if self.use_cache:
             root = platformdirs.user_cache_dir("inequality")
             cache_path = os.path.join(root, f"cache_together_{model_string}.db")
             super().__init__(cache_path=cache_path)
 
-        self.system_prompt = system_prompt
         if os.getenv("TOGETHER_API_KEY") is None:
             raise ValueError("Please set the TOGETHER_API_KEY environment variable if you'd like to use OpenAI models.")
         
         self.client = Together(
             api_key=os.getenv("TOGETHER_API_KEY"),
         )
-        self.model_string = model_string
 
     def _format_content(self, content):
         formatted_content = []
@@ -67,17 +79,74 @@ class ChatTogether(EngineLM, CachedEngine):
     def generate(
         self, content, system_prompt=None, temperature=0, max_tokens=4000, top_p=0.99, **kwargs
     ):  
-        if isinstance(content, list) and len(content) == 1:
-            content = content[0]
-        
+        try:
+            if isinstance(content, str):
+                return self._generate_text(content, system_prompt=system_prompt, temperature=temperature, max_tokens=max_tokens, top_p=top_p, **kwargs)
+            
+            elif isinstance(content, list):
+                if not self.is_multimodal:
+                    raise NotImplementedError("Multimodal generation is only supported for multimodal models.")
+                return self._generate_multimodal(content, system_prompt=system_prompt, temperature=temperature, max_tokens=max_tokens, top_p=top_p, **kwargs)
+
+        except Exception as e:
+            print(f"Error in generate method: {str(e)}")
+            print(f"Error type: {type(e).__name__}")
+            print(f"Error details: {e.args}")
+            return {
+                "error": type(e).__name__,
+                "message": str(e),
+                "details": getattr(e, 'args', None)
+            }
+
+    def _generate_text(
+        self, prompt, system_prompt=None, temperature=0, max_tokens=4000, top_p=0.99, **kwargs
+    ):
+        sys_prompt_arg = system_prompt if system_prompt else self.system_prompt
+
+        if self.use_cache:
+            cache_key = sys_prompt_arg + prompt
+            cache_or_none = self._check_cache(cache_key)
+            if cache_or_none is not None:
+                return cache_or_none
+
+        # Adjust max_tokens to ensure total tokens don't exceed Together's limit
+        MAX_TOTAL_TOKENS = 8000
+        max_tokens = min(max_tokens, MAX_TOTAL_TOKENS - 1000)
+
+        response = self.client.chat.completions.create(
+            model=self.model_string,
+            messages=[
+                {"role": "system", "content": sys_prompt_arg},
+                {"role": "user", "content": prompt},
+            ],
+            frequency_penalty=0,
+            presence_penalty=0,
+            stop=None,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            top_p=top_p,
+        )
+
+        response = response.choices[0].message.content
+        if self.use_cache:
+            self._save_cache(cache_key, response)
+        return response
+
+    def _generate_multimodal(
+        self, content, system_prompt=None, temperature=0, max_tokens=4000, top_p=0.99, **kwargs
+    ):
         sys_prompt_arg = system_prompt if system_prompt else self.system_prompt
         formatted_content = self._format_content(content)
 
         if self.use_cache:
             cache_key = sys_prompt_arg + json.dumps(formatted_content)
-            cache_or_none = self._check_cache(sys_prompt_arg + cache_key)
+            cache_or_none = self._check_cache(cache_key)
             if cache_or_none is not None:
                 return cache_or_none
+
+        # Adjust max_tokens to ensure total tokens don't exceed Together's limit
+        MAX_TOTAL_TOKENS = 8000
+        max_tokens = min(max_tokens, MAX_TOTAL_TOKENS - 1000)
 
         response = self.client.chat.completions.create(
             model=self.model_string,
