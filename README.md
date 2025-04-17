@@ -34,13 +34,18 @@
 
 - **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/JQjpHDSM) to get started!
 
-- **Coming soon** 🚀: Support for a broader range of LLM engines is on the way! Stay tuned for updates.
+- **2025-04-17** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://github.com/octotools/octotools?tab=readme-ov-file#supported-llm-engines).
 
 - **2025-03-08** 📺: Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
 
 - **2025-02-16** 📄: Our paper is now available as a preprint on ArXiv! Read it [here](https://arxiv.org/abs/2502.11271)!
 
-## YouTube Tutorial
+
+## Get Started
+
+
+
+### YouTube Tutorial
 
 Excited to have a tutorial video for OctoTools covered by [Discover AI](https://www.youtube.com/@code4AI) at YouTube!
 
@@ -51,7 +56,7 @@ Excited to have a tutorial video for OctoTools covered by [Discover AI](https://
 </div>
 
 
-## Introduction
+### Introduction
 
 We introduce **OctoTools**, a training-free, user-friendly, and easily extensible open-source agentic framework designed to tackle complex reasoning across diverse domains. **OctoTools** introduces standardized **tool cards** to encapsulate tool functionality, a **planner** for both high-level and low-level planning, and an **executor** to carry out tool usage. 
 
@@ -66,6 +71,18 @@ We validate **OctoTools**’ generality across 16 diverse tasks (including MathV
     <img src="assets/result/main_scores_bar_chart.png" width="50%">
     <!-- Text. -->
 </p>
+
+
+### Supported LLM Engines
+
+We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, and more.
+
+| Model Family | Engines (Multi-modal) | Engines (Text-Only) | Official Model List |
+|--------------|-------------------|--------------------| -------------------- |
+| OpenAI | `gpt-4-turbo`, `gpt-4o`, `gpt-4o-mini`,  `gpt-4.1`,  `gpt-4.1-mini`, `gpt-4.1-nano`, `o1`, `o3`, `o1-pro`, `o4-mini` (soon) | `gpt-3.5-turbo`, `gpt-4`, `o1-mini`, `o3-mini` | [OpenAI Models](https://platform.openai.com/docs/models) |
+| Anthropic | `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `claude-3-opus-20240229`, `claude-3-5-sonnet-20240620`, `claude-3-5-sonnet-20241022`, `claude-3-5-haiku-20241022`, `claude-3-7-sonnet-20250219` | | [Anthropic Models](https://docs.anthropic.com/en/docs/about-claude/models/all-models) |
+| TogetherAI | Most multi-modal models, including `meta-llama/Llama-4-Scout-17B-16E-Instruct`, `Qwen/QwQ-32B`, `Qwen/Qwen2-VL-72B-Instruct` | Most text-only models, including `meta-llama/Llama-3-70b-chat-hf`, `Qwen/Qwen2-72B-Instruct` | [TogetherAI Models](https://api.together.ai/models) |
+| DeepSeek |  | `deepseek-chat`, `deepseek-reasoner` | [DeepSeek Models](https://api-docs.deepseek.com/quick_start/pricing) |
 
 ## Installation
 
@@ -308,3 +325,8 @@ We are also looking forward to your feedback and suggestions!
     ↑ Back to Top ↑
   </a>
 </p>
+
+
+### Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=octotools/octotools&type=Date)](https://www.star-history.com/#octotools/octotools&Date)

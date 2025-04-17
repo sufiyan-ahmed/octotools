@@ -1,6 +1,6 @@
 import os
 from octotools.tools.base import BaseTool
-from octotools.engine.openai import ChatOpenAI
+from octotools.engine.factory import create_llm_engine
 
 class Generalist_Solution_Generator_Tool(BaseTool):
     require_llm_engine = True
@@ -52,7 +52,7 @@ class Generalist_Solution_Generator_Tool(BaseTool):
 
         print(f"\nInitializing Generalist Tool with model: {self.model_string}")
         multimodal = True if image else False
-        llm_engine = ChatOpenAI(model_string=self.model_string, is_multimodal=multimodal)
+        llm_engine = create_llm_engine(model_string=self.model_string, is_multimodal=multimodal)
 
         try:
             input_data = [prompt]

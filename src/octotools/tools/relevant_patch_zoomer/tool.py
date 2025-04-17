@@ -2,7 +2,7 @@ import os
 import cv2
 from pydantic import BaseModel
 from octotools.tools.base import BaseTool
-from octotools.engine.openai import ChatOpenAI
+from octotools.engine.factory import create_llm_engine
 
 class PatchZoomerResponse(BaseModel):
     analysis: str
@@ -44,7 +44,7 @@ class Relevant_Patch_Zoomer_Tool(BaseTool):
         }
 
         print(f"\nInitializing Patch Zoomer Tool with model: {model_string}")
-        self.llm_engine = ChatOpenAI(model_string=model_string, is_multimodal=True) if model_string else None
+        self.llm_engine = create_llm_engine(model_string=model_string, is_multimodal=True) if model_string else None
         
     def _save_patch(self, image_path, patch, save_path, zoom_factor=2):
         """Extract and save a specific patch from the image with 10% margins."""
