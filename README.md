@@ -83,6 +83,9 @@ We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Ge
 | Anthropic | `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `claude-3-opus-20240229`, `claude-3-5-sonnet-20240620`, `claude-3-5-sonnet-20241022`, `claude-3-5-haiku-20241022`, `claude-3-7-sonnet-20250219` | | [Anthropic Models](https://docs.anthropic.com/en/docs/about-claude/models/all-models) |
 | TogetherAI | Most multi-modal models, including `meta-llama/Llama-4-Scout-17B-16E-Instruct`, `Qwen/QwQ-32B`, `Qwen/Qwen2-VL-72B-Instruct` | Most text-only models, including `meta-llama/Llama-3-70b-chat-hf`, `Qwen/Qwen2-72B-Instruct` | [TogetherAI Models](https://api.together.ai/models) |
 | DeepSeek |  | `deepseek-chat`, `deepseek-reasoner` | [DeepSeek Models](https://api-docs.deepseek.com/quick_start/pricing) |
+| Gemini | `gemini-2.0-flash-live-001`, `gemini-2.0-flash-lite`, `gemini-2.0-flash`, `gemini-2.5-pro-preview-03-25`, `gemini-2.5-flash-preview` | `gemini-1.5-pro`, `gemini-1.5-flash-8`, `gemini-1.5-flash` |  [Gemini Models](https://ai.google.dev/gemini-api/docs/models) |
+| Grok | `grok-2-vision-1212`, `grok-2-vision`, `grok-2-vision-latest` | `grok-3-mini-fast`, `grok-3-mini-latest`, `grok-3-fast-latest`, `grok-3-latest` | [Grok Models](https://docs.x.ai/docs/models#models-and-pricing) |
+| vllm | Models including  | Models including | [vllm Models](https://docs.vllm.ai/en/latest/models/supported_models.html) |
 
 ## Installation
 
@@ -104,8 +107,11 @@ Make `.env` file, and set `OPENAI_API_KEY`, `GOOGLE_API_KEY`, `GOOGLE_CX`, etc. 
 ```sh
 # The content of the .env file
 
-# Used for GPT-4o-powered tools
-OPENAI_API_KEY=<your-api-key-here>
+# Used for LLM-powered modules and tools
+OPENAI_API_KEY=<your-api-key-here> # If you want to use OpenAI LLM
+ANTHROPIC_API_KEY=<your-api-key-here> # If you want to use Anthropic LLM
+TOGETHER_API_KEY=<your-api-key-here> # If you want to use TogetherAI LLM
+DEEPSEEK_API_KEY=<your-api-key-here> # If you want to use DeepSeek LLM
 
 # Used for the Google Search tool
 GOOGLE_API_KEY=<your-api-key-here>
