@@ -34,7 +34,7 @@
 
 - **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/JQjpHDSM) to get started!
 
-- **2025-04-17** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://octotools.github.io/#supported-llm-engines).
+- **2025-04-17** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://github.com/octotools/octotools?tab=readme-ov-file#supported-llm-engines).
 
 - **2025-03-08** 📺: Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
 
