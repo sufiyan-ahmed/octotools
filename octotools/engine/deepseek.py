@@ -33,7 +33,7 @@ class ChatDeepseek(EngineLM, CachedEngine):
         self.is_reasoning_model = any(x in model_string for x in ["deepseek-reasoner"])
 
         if self.use_cache:
-            root = platformdirs.user_cache_dir("inequality")
+            root = platformdirs.user_cache_dir("octotools")
             cache_path = os.path.join(root, f"cache_deepseek_{model_string}.db")
             print(f"Cache path: {cache_path}")
             super().__init__(cache_path=cache_path)
