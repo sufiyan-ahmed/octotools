@@ -97,8 +97,9 @@ We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Ge
 | DeepSeek |  | `deepseek-chat`, `deepseek-reasoner` | [DeepSeek Models](https://api-docs.deepseek.com/quick_start/pricing) |
 | Gemini | `gemini-1.5-pro`, `gemini-1.5-flash-8b`, `gemini-1.5-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-flash`, `gemini-2.5-pro-preview-03-25` |  |  [Gemini Models](https://ai.google.dev/gemini-api/docs/models) |
 | Grok | `grok-2-vision-1212`, `grok-2-vision`, `grok-2-vision-latest` | `grok-3-mini-fast-beta`, `grok-3-mini-fast`, `grok-3-mini-fast-latest`, `grok-3-mini-beta`, `grok-3-mini`, `grok-3-mini-latest`, `grok-3-fast-beta`, `grok-3-fast`, `grok-3-fast-latest`, `grok-3-beta`, `grok-3`, `grok-3-latest` | [Grok Models](https://docs.x.ai/docs/models#models-and-pricing) |
-<!-- | vllm | Models including  | Models including | [vllm Models](https://docs.vllm.ai/en/latest/models/supported_models.html) | -->
+| vllm | Models such as ``  | Models such as `Qwen/Qwen2.5-1.5B-Instruct` | [vllm Models](https://docs.vllm.ai/en/latest/models/supported_models.html) |
 
+> Note: If you are using TogetherAI models, please ensure have the prefix 'together-' in the model string, for example, `together-meta-llama/Llama-4-Scout-17B-16E-Instruct`. If you are using VLLM models, please ensure have the prefix 'vllm-' in the model string, for example, `vllm-meta-llama/Llama-4-Scout-17B-16E-Instruct`. For other custom engines, you can edit the [factory.py](https://github.com/OctoTools/OctoTools/blob/main/octotools/engine/factory.py) file and add its interface file to add support for your engine. Your pull request will be warmly welcomed!
 
 ## Installation
 

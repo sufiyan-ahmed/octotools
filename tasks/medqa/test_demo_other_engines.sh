@@ -37,9 +37,9 @@ LLM="o1"
 # LLM="deepseek-chat"
 # LLM="deepseek-reasoner"
 
-# LLM="meta-llama/Llama-3-70b-chat-hf"
-# LLM="meta-llama/Meta-Llama-3-70B-Instruct-Turbo"
-# LLM="Qwen/Qwen2-72B-Instruct"
+# LLM="together-meta-llama/Llama-3-70b-chat-hf"
+# LLM="together-meta-llama/Meta-Llama-3-70B-Instruct-Turbo"
+# LLM="together-Qwen/Qwen2-72B-Instruct"
 
 # LLM="gemini-1.5-pro" # (verified)
 # LLM="gemini-1.5-flash-8b" # (verified)
@@ -64,6 +64,8 @@ LLM="o1"
 # LLM="grok-3"
 # LLM="grok-3-latest"
 
+# LLM="vllm-Qwen/Qwen2.5-1.5B-Instruct"
+LLM="vllm-allenai/OLMo-1B-hf"
 
 ENABLED_TOOLS="Generalist_Solution_Generator_Tool"
 

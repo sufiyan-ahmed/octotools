@@ -17,15 +17,21 @@ class ChatVLLM(EngineLM, CachedEngine):
     def __init__(
         self,
         model_string="meta-llama/Meta-Llama-3-8B-Instruct",
+        use_cache: bool=False,
         system_prompt=DEFAULT_SYSTEM_PROMPT,
+        is_multimodal: bool=False,
         **llm_config,
     ):
-        root = platformdirs.user_cache_dir("octotools")
-        cache_path = os.path.join(root, f"cache_vllm_{model_string}.db")
-        super().__init__(cache_path=cache_path)
-
+        self.use_cache = use_cache
         self.model_string = model_string
         self.system_prompt = system_prompt
+        self.is_multimodal = is_multimodal
+
+        if self.use_cache:
+            root = platformdirs.user_cache_dir("octotools")
+            cache_path = os.path.join(root, f"cache_vllm_{model_string}.db")
+            super().__init__(cache_path=cache_path)
+
         self.client = LLM(self.model_string, **llm_config)
         self.tokenizer = self.client.get_tokenizer()
 
