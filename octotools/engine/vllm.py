@@ -33,18 +33,17 @@ class ChatVLLM(EngineLM, CachedEngine):
             root = platformdirs.user_cache_dir("octotools")
             cache_path = os.path.join(root, f"cache_vllm_{model_string}.db")
             super().__init__(cache_path=cache_path)
-
-        # # Use GPTQ quantization by default
-        # if 'quantization' not in llm_config:
-        #     llm_config['quantization'] = 'gptq'
         
         # Add GPU memory utilization if not provided
         if 'gpu_memory_utilization' not in llm_config:
-            llm_config['gpu_memory_utilization'] = 0.95  # Increased to 95%
+            llm_config['gpu_memory_utilization'] = 0.1 # Reduced to 60% to avoid Out of Memory errors
+
+        print(f"### Initializing VLLM client with config: {llm_config}")
 
         try:
             self.client = LLM(self.model_string, **llm_config)
-            self.tokenizer = self.client.get_tokenizer()
+            print(f"### VLLM client initialized successfully")
+
         except RuntimeError as e:
             if "Failed to find C compiler" in str(e):
                 raise RuntimeError(
@@ -69,13 +68,14 @@ class ChatVLLM(EngineLM, CachedEngine):
             conversation = [{"role": "system", "content": sys_prompt_arg}]
 
         conversation += [{"role": "user", "content": prompt}]
-        chat_str = self.tokenizer.apply_chat_template(conversation, tokenize=False)
+        chat_str = str(conversation)
+        print(f"### Chat string: {chat_str}")
 
         sampling_params = SamplingParams(
             temperature=temperature, max_tokens=max_tokens, top_p=top_p, n=1
         )
 
-        response = self.client.generate([chat_str], sampling_params)
+        response = self.client.generate(chat_str, sampling_params)
         response = response[0].outputs[0].text
 
         self._save_cache(sys_prompt_arg + prompt, response)

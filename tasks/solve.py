@@ -360,7 +360,6 @@ def main(args):
         root_cache_dir=args.root_cache_dir
     )
 
-
     # Instantiate Solver
     solver = Solver(
         planner=planner,
