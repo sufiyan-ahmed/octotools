@@ -107,12 +107,12 @@ Create a conda environment from the `conda.yaml` file:
 
 ```sh
 conda env create -f conda.yaml
-```
+```llist
 
 Activate the environment and install requirements:
 
 ```sh
-conda activate octotools
+source activate octotools
 pip install -e .
 ```
 

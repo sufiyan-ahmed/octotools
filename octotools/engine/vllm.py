@@ -9,6 +9,8 @@ import os
 import platformdirs
 from .base import EngineLM, CachedEngine
 
+import torch._dynamo
+torch._dynamo.config.suppress_errors = True
 
 class ChatVLLM(EngineLM, CachedEngine):
     # Default system prompt for VLLM models
@@ -32,8 +34,26 @@ class ChatVLLM(EngineLM, CachedEngine):
             cache_path = os.path.join(root, f"cache_vllm_{model_string}.db")
             super().__init__(cache_path=cache_path)
 
-        self.client = LLM(self.model_string, **llm_config)
-        self.tokenizer = self.client.get_tokenizer()
+        # # Use GPTQ quantization by default
+        # if 'quantization' not in llm_config:
+        #     llm_config['quantization'] = 'gptq'
+        
+        # Add GPU memory utilization if not provided
+        if 'gpu_memory_utilization' not in llm_config:
+            llm_config['gpu_memory_utilization'] = 0.95  # Increased to 95%
+
+        try:
+            self.client = LLM(self.model_string, **llm_config)
+            self.tokenizer = self.client.get_tokenizer()
+        except RuntimeError as e:
+            if "Failed to find C compiler" in str(e):
+                raise RuntimeError(
+                    "VLLM requires a C compiler to be installed. Please install gcc/g++ and try again. "
+                    "On Ubuntu/Debian: `sudo apt-get install build-essential`\n"
+                    "On CentOS/RHEL: `sudo yum groupinstall 'Development Tools'`\n"
+                    "On macOS: Install Xcode Command Line Tools"
+                ) from e
+            raise
 
     def generate(
         self, prompt, system_prompt=None, temperature=0, max_tokens=2000, top_p=0.99

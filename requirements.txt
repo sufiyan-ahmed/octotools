@@ -3,6 +3,7 @@ openai==1.75.0
 together==1.5.4
 google-generativeai==0.8.5
 vllm==0.8.4
+transformers
 diskcache==5.6.3
 easyocr==1.7.2
 metapub==0.5.12
@@ -12,5 +13,4 @@ pymed==0.8.9
 python-dotenv==1.0.1
 sympy==1.13.1
 tenacity==9.0.0
-transformers==4.49.0
 wikipedia==1.4.0
