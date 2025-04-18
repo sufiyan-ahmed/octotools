@@ -39,7 +39,19 @@ CACHE_DIR="$TASK/cache"
 
 # LLM="Qwen/Qwen2-VL-72B-Instruct"
 # LLM="Llama-4-Maverick-17B-128E-Instruct-FP8"
-LLM="meta-llama/Llama-4-Scout-17B-16E-Instruct"
+# LLM="meta-llama/Llama-4-Scout-17B-16E-Instruct"
+
+# LLM="gemini-1.5-pro" # (verified)
+# LLM="gemini-1.5-flash-8b" # (verified)
+# LLM="gemini-1.5-flash" # (verified)
+# LLM="gemini-2.0-flash-lite" # (verified)
+# LLM="gemini-2.0-flash" # (verified)
+# LLM="gemini-2.5-pro-preview-03-25" # (verified)
+
+# LLM="grok-2-vision-1212"
+# LLM="grok-2-vision"
+LLM="grok-2-vision-latest"
+
 
 ENABLED_TOOLS="Generalist_Solution_Generator_Tool"
 
@@ -50,6 +62,7 @@ python solve.py \
 --task $TASK \
 --data_file $DATA_FILE \
 --llm_engine_name $LLM \
+
 --root_cache_dir $CACHE_DIR \
 --output_json_dir $OUT_DIR \
 --output_types direct \

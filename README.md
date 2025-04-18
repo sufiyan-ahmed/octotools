@@ -32,17 +32,29 @@
 
 ## Updates
 
+
+### News
+
 - **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/JQjpHDSM) to get started!
-
 - **2025-04-17** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://github.com/octotools/octotools?tab=readme-ov-file#supported-llm-engines).
-
 - **2025-03-08** 📺: Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
-
 - **2025-02-16** 📄: Our paper is now available as a preprint on ArXiv! Read it [here](https://arxiv.org/abs/2502.11271)!
 
 
-## Get Started
+### TODO
 
+Stay tuned, we're working on the following:
+
+- [X] Add support for Anthropic LLM
+- [X] Add support for Together AI LLM
+- [X] Add support for DeepSeek LLM
+- [X] Add support for Gemini LLM
+- [X] Add support for Grok LLM
+- [ ] Add support for vLLM LLM
+- [ ] Release Python package on PyPI (coming soon!)
+
+
+## Get Started
 
 
 ### YouTube Tutorial
@@ -79,10 +91,14 @@ We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Ge
 
 | Model Family | Engines (Multi-modal) | Engines (Text-Only) | Official Model List |
 |--------------|-------------------|--------------------| -------------------- |
-| OpenAI | `gpt-4-turbo`, `gpt-4o`, `gpt-4o-mini`,  `gpt-4.1`,  `gpt-4.1-mini`, `gpt-4.1-nano`, `o1`, `o3`, `o1-pro`, `o4-mini` (soon) | `gpt-3.5-turbo`, `gpt-4`, `o1-mini`, `o3-mini` | [OpenAI Models](https://platform.openai.com/docs/models) |
+| OpenAI | `gpt-4-turbo`, `gpt-4o`, `gpt-4o-mini`,  `gpt-4.1`,  `gpt-4.1-mini`, `gpt-4.1-nano`, `o1`, `o3`, `o1-pro`, `o4-mini` | `gpt-3.5-turbo`, `gpt-4`, `o1-mini`, `o3-mini` | [OpenAI Models](https://platform.openai.com/docs/models) |
 | Anthropic | `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `claude-3-opus-20240229`, `claude-3-5-sonnet-20240620`, `claude-3-5-sonnet-20241022`, `claude-3-5-haiku-20241022`, `claude-3-7-sonnet-20250219` | | [Anthropic Models](https://docs.anthropic.com/en/docs/about-claude/models/all-models) |
 | TogetherAI | Most multi-modal models, including `meta-llama/Llama-4-Scout-17B-16E-Instruct`, `Qwen/QwQ-32B`, `Qwen/Qwen2-VL-72B-Instruct` | Most text-only models, including `meta-llama/Llama-3-70b-chat-hf`, `Qwen/Qwen2-72B-Instruct` | [TogetherAI Models](https://api.together.ai/models) |
 | DeepSeek |  | `deepseek-chat`, `deepseek-reasoner` | [DeepSeek Models](https://api-docs.deepseek.com/quick_start/pricing) |
+| Gemini | `gemini-1.5-pro`, `gemini-1.5-flash-8b`, `gemini-1.5-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-flash`, `gemini-2.5-pro-preview-03-25` |  |  [Gemini Models](https://ai.google.dev/gemini-api/docs/models) |
+| Grok | `grok-2-vision-1212`, `grok-2-vision`, `grok-2-vision-latest` | `grok-3-mini-fast-beta`, `grok-3-mini-fast`, `grok-3-mini-fast-latest`, `grok-3-mini-beta`, `grok-3-mini`, `grok-3-mini-latest`, `grok-3-fast-beta`, `grok-3-fast`, `grok-3-fast-latest`, `grok-3-beta`, `grok-3`, `grok-3-latest` | [Grok Models](https://docs.x.ai/docs/models#models-and-pricing) |
+<!-- | vllm | Models including  | Models including | [vllm Models](https://docs.vllm.ai/en/latest/models/supported_models.html) | -->
+
 
 ## Installation
 
@@ -103,8 +119,13 @@ Make `.env` file, and set `OPENAI_API_KEY`, `GOOGLE_API_KEY`, `GOOGLE_CX`, etc. 
 ```sh
 # The content of the .env file
 
-# Used for GPT-4o-powered tools
-OPENAI_API_KEY=<your-api-key-here>
+# Used for LLM-powered modules and tools
+OPENAI_API_KEY=<your-api-key-here> # If you want to use OpenAI LLM
+ANTHROPIC_API_KEY=<your-api-key-here> # If you want to use Anthropic LLM
+TOGETHER_API_KEY=<your-api-key-here> # If you want to use TogetherAI LLM
+DEEPSEEK_API_KEY=<your-api-key-here> # If you want to use DeepSeek LLM
+GOOGLE_API_KEY=<your-api-key-here> # If you want to use Gemini LLM
+XAI_API_KEY=<your-api-key-here> # If you want to use Grok LLM
 
 # Used for the Google Search tool
 GOOGLE_API_KEY=<your-api-key-here>

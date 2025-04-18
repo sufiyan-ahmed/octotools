@@ -45,7 +45,7 @@ class ChatTogether(EngineLM, CachedEngine):
         ])
 
         if self.use_cache:
-            root = platformdirs.user_cache_dir("inequality")
+            root = platformdirs.user_cache_dir("octotools")
             cache_path = os.path.join(root, f"cache_together_{model_string}.db")
             super().__init__(cache_path=cache_path)
 

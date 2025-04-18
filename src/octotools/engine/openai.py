@@ -70,6 +70,7 @@ class ChatOpenAI(EngineLM, CachedEngine):
         self.is_chat_model = validate_chat_model(self.model_string)
         self.is_reasoning_model = validate_reasoning_model(self.model_string)
         self.is_pro_reasoning_model = validate_pro_reasoning_model(self.model_string)
+
         if self.use_cache:
             print(f"!! Cache enabled for model: {self.model_string}")
             root = platformdirs.user_cache_dir("octotools")
@@ -101,7 +102,7 @@ class ChatOpenAI(EngineLM, CachedEngine):
             
             elif isinstance(content, list):
                 if (not self.is_multimodal):
-                    raise NotImplementedError("Multimodal generation is only supported for GPT-4 models.")
+                    raise NotImplementedError(f"Multimodal generation is only supported for {self.model_string}.")
                 
                 return self._generate_multimodal(content, system_prompt=system_prompt, **kwargs)
 
