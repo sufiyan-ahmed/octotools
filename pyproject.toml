@@ -3,8 +3,8 @@ requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "octotools_test_001"
-version = "0.0.7"
+name = "octotoolkit"
+version = "0.1.2"
 authors = [
   { name="Pan Lu", email="lupantech@gmail.com" },
 ]
@@ -36,8 +36,12 @@ classifiers = [
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
 
+[tool.setuptools.packages.find]
+where = ["."]
+
 [project.urls]
 Homepage = "https://octotools.github.io"
-Paper = "https://arxiv.org/pdf/2502.11271"
+Arxiv = "https://arxiv.org/pdf/2502.11271"
+Demo = "https://huggingface.co/spaces/OctoTools/octotools"
 Github = "https://github.com/octotools/octotools"
 Issues = "https://github.com/octotools/octotools/issues"

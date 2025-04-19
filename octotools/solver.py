@@ -19,7 +19,7 @@ class Solver:
         executor,
         output_types: str = "base,final,direct",
         max_steps: int = 10,
-        max_time: int = 60,
+        max_time: int = 300,
         max_tokens: int = 4000,
         root_cache_dir: str = "cache"
     ):

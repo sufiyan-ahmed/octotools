@@ -111,7 +111,7 @@ Create a conda environment and install the dependencies:
 ```sh
 conda create -n octotools python=3.10
 conda activate octotools
-pip install <TODO: FIND A NAME>
+pip install octotoolkit
 ```
 
 Make `.env` file, and set `OPENAI_API_KEY`, `GOOGLE_API_KEY`, `GOOGLE_CX`, etc. For example:
