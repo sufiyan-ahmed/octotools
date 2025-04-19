@@ -11,6 +11,7 @@ class Initializer:
         self.toolbox_metadata = {}
         self.available_tools = []
         self.enabled_tools = enabled_tools
+        self.load_all = self.enabled_tools == ["all"]
         self.model_string = model_string # llm model string
 
         print("\nInitializing octotools...")
@@ -47,7 +48,7 @@ class Initializer:
 
         for root, dirs, files in os.walk(tools_dir):
             # print(f"\nScanning directory: {root}")
-            if 'tool.py' in files and os.path.basename(root) in self.available_tools:
+            if 'tool.py' in files and (self.load_all or os.path.basename(root) in self.available_tools):
                 file = 'tool.py'
                 module_path = os.path.join(root, file)
                 module_name = os.path.splitext(file)[0]
