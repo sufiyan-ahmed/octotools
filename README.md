@@ -2,7 +2,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-<img src="assets/octotools.svg" alt="OctoTools Logo" width="100">
+<img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/octotools.svg" alt="OctoTools Logo" width="100">
 </div>
 
 # OctoTools: An Agentic Framework with Extensible Tools for Complex Reasoning
@@ -74,13 +74,13 @@ We introduce **OctoTools**, a training-free, user-friendly, and easily extensibl
 
 **Tool cards** define tool-usage metadata and encapsulate heterogeneous tools, enabling training-free integration of new tools without additional training or framework refinement. (2) The **planner** governs both high-level and low-level planning to address the global objective and refine actions step by step. (3) The **executor** instantiates tool calls by generating executable commands and save structured results in the context. The final answer is summarized from the full trajectory in the context. Furthermore, the *task-specific toolset optimization algorithm* learns a beneficial subset of tools for downstream tasks.
 
-![framework_overall](assets/models/framework_overall.png)
-![framework_example](assets/models/framework_example.png)
+![framework_overall](https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/models/framework_overall.png)
+![framework_example](https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/models/framework_example.png)
 
 We validate **OctoTools**’ generality across 16 diverse tasks (including MathVista, MMLU-Pro, MedQA, and GAIA-Text), achieving substantial average accuracy gains of 9.3% over GPT-4o. Furthermore, **OctoTools** also outperforms AutoGen, GPT-Functions and LangChain by up to 10.6% when given the same set of tools.
 
 <p align="center">  
-    <img src="assets/result/main_scores_bar_chart.png" width="50%">
+    <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/result/main_scores_bar_chart.png" width="50%">
     <!-- Text. -->
 </p>
 
@@ -103,17 +103,16 @@ We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Ge
 
 ## Installation
 
-Create a conda environment from the `conda.yaml` file:
+Currently, there are two ways to install OctoTools. For most use cases, standard installation would suffice. However, to replicate the [benchmarks](https://github.com/octotools/octotools/tree/main/tasks) mentioned in the original paper and to make your own edits to the code, you would need to several bash scripts from Github. An editable installation is recommended.
+
+### 1. Standard Installation
+
+Create a conda environment and install the dependencies:
 
 ```sh
-conda env create -f conda.yaml
-```llist
-
-Activate the environment and install requirements:
-
-```sh
-source activate octotools
-pip install -e .
+conda create -n octotools python=3.10
+conda activate octotools
+pip install octotoolkit
 ```
 
 Make `.env` file, and set `OPENAI_API_KEY`, `GOOGLE_API_KEY`, `GOOGLE_CX`, etc. For example:
@@ -139,19 +138,60 @@ DINO_KEY=<your-dino-key-here>
 
 Obtain a Google API Key and Google CX according to the [Google Custom Search API](https://developers.google.com/custom-search/v1/overview) documation.
 
-Install `parallel` for running benchmark experiments in parallel:
+
+### 2. Editable Installation 
+
+Start with a fresh new environment:
+```sh
+conda create -n octotools python=3.10
+conda activate octotools
+```
+
+Clone the [github repo](https://github.com/octotools/octotools):
+```sh
+git clone https://github.com/octotools/octotools.git
+```
+
+In the root directory (the directory that contains ``pyproject.toml``), run the following command:
+```sh
+pip install -e .
+```
+
+(Optional) Install `parallel` for running benchmark experiments in parallel:
 
 ```sh
 sudo apt-get update
 sudo apt-get install parallel
 ```
 
-## Test tools in the toolbox
+## Test the Default Solver
+
+In a brand new folder, paste the following code:
+```py
+from octotools.solver import construct_solver
+
+# remember to put your API keys in .env
+import dotenv
+dotenv.load_dotenv()
+
+llm_engine_name = "gpt-4o"
+solver = construct_solver(llm_engine_name=llm_engine_name)
+
+print(solver.solve("What is the capital of France?"))
+# similarly, you could pass in a photo
+# print(solver.solve("What is the name of this item in French?", image_path="<PATH_TO_IMG>"))
+```
+You should be able to see the output at the end, along with all the intermediate content.
+
+A more detailed jupyter notebook tutorial on the pipeline is coming soon. Stay tuned!
+
+
+## Test Tools in the Toolbox (Need Test Scripts from Github)
 
 Using `Python_Code_Generator_Tool` as an example, test the availability of the tool by running the following:
 
 ```sh
-cd octotools/tools/python_code_generator
+cd src/octotools/tools/python_code_generator
 python tool.py
 ```
 
@@ -164,7 +204,7 @@ Execution Result: {'printed_output': 'The sum of all the numbers in the list is:
 You can also test all tools available in the toolbox by running the following:
 
 ```sh
-cd octotools/tools
+cd src/octotools/tools
 source test_all_tools.sh
 ```
 
@@ -186,12 +226,12 @@ Done testing all tools
 Failed: 0
 ```
 
-## Run inference on benchmarks
+## Run Inference on Benchmarks (Need Bash Scripts from Github)
 
 Using [CLEVR-Math](https://huggingface.co/datasets/dali-does/clevr-math) as an example, run inference on a benchmark by:
 
 ```sh
-cd octotools/tasks
+cd src/octotools/tasks
 
 # Run inference from clevr-math using GPT-4 only
 source clevr-math/run_gpt4o.sh
@@ -215,7 +255,7 @@ To demonstrate the generality of our **OctoTools** framework, we conduct compreh
 
 
 <p align="center">
-    <img src="assets/result/result_table_1.png" width="100%">
+    <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/result/result_table_1.png" width="100%">
     <!-- Text. -->
 </p>
 
@@ -228,7 +268,7 @@ More results are available in the [paper](https://arxiv.org/pdf/2502.11271) or a
 We provide a set of in-depth analyses to help you understand the framework. For instance, we visualize the tool usage of **OctoTools** and its baselines  from 16 tasks. It turns out that **OctoTools** takes advantage of different external tools to address task-specific challenges. Explore more findings at our [paper](https://arxiv.org/pdf/2502.11271) or the [project page](https://octotools.github.io/#analysis).
 
 <a align="center">
-    <img src="assets/result/tool_usage_ours_baselines.png" width="100%">
+    <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/result/tool_usage_ours_baselines.png" width="100%">
     <!-- Text. -->
 </a>
 
@@ -238,7 +278,7 @@ We provide a set of example visualizations to help you understand the framework.
 
 <p align="center">  
     <a href="https://octotools.github.io/#visualization">
-        <img src="assets/result/example_visualization.png" width="80%">
+        <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/result/example_visualization.png" width="80%">
     </a>
 </p>
 
@@ -249,7 +289,7 @@ The design of each tool card is modular relative to the **OctoTools** framework,
 
 <p align="center">
     <a href="https://octotools.github.io/#tool_cards">
-        <img src="assets/models/tool_cards.png" width="100%">
+        <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/models/tool_cards.png" width="100%">
     </a>
 </p>
 
