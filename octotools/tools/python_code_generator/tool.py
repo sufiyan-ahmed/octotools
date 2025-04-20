@@ -100,7 +100,7 @@ class Python_Code_Generator_Tool(BaseTool):
                 ]
             }
         )
-        print(f"\nInitializing Python_Code_Generator_Tool with model_string: {model_string}")
+        print(f"Initializing Python_Code_Generator_Tool with model_string: {model_string}")
         self.llm_engine = create_llm_engine(model_string=model_string, is_multimodal=False) if model_string else None
 
     @staticmethod

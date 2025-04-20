@@ -35,7 +35,6 @@ class ChatDeepseek(EngineLM, CachedEngine):
         if self.use_cache:
             root = platformdirs.user_cache_dir("octotools")
             cache_path = os.path.join(root, f"cache_deepseek_{model_string}.db")
-            print(f"Cache path: {cache_path}")
             super().__init__(cache_path=cache_path)
 
         if os.getenv("DEEPSEEK_API_KEY") is None:
@@ -62,11 +61,8 @@ class ChatDeepseek(EngineLM, CachedEngine):
             cache_or_none = self._check_cache(cache_key)
             if cache_or_none is not None:
                 return cache_or_none
-
-        print(f"Using Deepseek model: {self.model_string}")
         
         if self.is_chat_model:
-            print(f"Using chat model: {self.model_string}")
             response = self.client.chat.completions.create(
                 model=self.model_string,
                 messages=[
@@ -80,7 +76,6 @@ class ChatDeepseek(EngineLM, CachedEngine):
             response = response.choices[0].message.content
 
         elif self.is_reasoning_model:
-            print(f"Using reasoning model: {self.model_string}")
             response = self.client.chat.completions.create(
                 model=self.model_string,
                 messages=[

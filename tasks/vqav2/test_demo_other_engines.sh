@@ -38,8 +38,8 @@ CACHE_DIR="$TASK/cache"
 # LLM="deepseek-reasoner"
 
 # LLM="together-meta-llama/Llama-4-Scout-17B-16E-Instruct"
-LLM="together-Qwen/QwQ-32B"
-# LLM="together-Qwen/Qwen2-VL-72B-Instruct"
+# LLM="together-Qwen/QwQ-32B"
+LLM="together-Qwen/Qwen2-VL-72B-Instruct"
 
 # LLM="gemini-1.5-pro" # (verified)
 # LLM="gemini-1.5-flash-8b" # (verified)

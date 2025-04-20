@@ -215,8 +215,6 @@ class Solver:
 
                     # Execute the tool command
                     result = self.executor.execute_tool_command(tool_name, command)
-                    print("!!! type of result: ", type(result))
-
                     result = make_json_serializable_truncated(result) # Convert to JSON serializable format
 
                     if self.verbose:

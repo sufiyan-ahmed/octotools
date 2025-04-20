@@ -72,14 +72,11 @@ class ChatOpenAI(EngineLM, CachedEngine):
         self.is_pro_reasoning_model = validate_pro_reasoning_model(self.model_string)
 
         if self.use_cache:
-            print(f"!! Cache enabled for model: {self.model_string}")
             root = platformdirs.user_cache_dir("octotools")
             cache_path = os.path.join(root, f"cache_openai_{self.model_string}.db")
             self.image_cache_dir = os.path.join(root, "image_cache")
             os.makedirs(self.image_cache_dir, exist_ok=True)
             super().__init__(cache_path=cache_path)
-        else:
-            print(f"!! Cache disabled for model: {self.model_string}")
         
         if os.getenv("OPENAI_API_KEY") is None:
             raise ValueError("Please set the OPENAI_API_KEY environment variable if you'd like to use OpenAI models.")
@@ -92,11 +89,6 @@ class ChatOpenAI(EngineLM, CachedEngine):
     @retry(wait=wait_random_exponential(min=1, max=5), stop=stop_after_attempt(5))
     def generate(self, content: Union[str, List[Union[str, bytes]]], system_prompt=None, **kwargs):
         try:
-            # Print retry attempt information
-            attempt_number = self.generate.retry.statistics.get('attempt_number', 0) + 1
-            if attempt_number > 1:
-                print(f"Attempt {attempt_number} of 5")
-
             if isinstance(content, str):
                 return self._generate_text(content, system_prompt=system_prompt, **kwargs)
             

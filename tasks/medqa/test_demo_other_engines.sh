@@ -41,7 +41,7 @@ CACHE_DIR="$TASK/cache"
 # LLM="together-meta-llama/Meta-Llama-3-70B-Instruct-Turbo"
 # LLM="together-Qwen/Qwen2-72B-Instruct"
 # LLM="together-meta-llama/Llama-4-Scout-17B-16E-Instruct"
-LLM="together-Qwen/QwQ-32B"
+# LLM="together-Qwen/QwQ-32B"
 # LLM="together-Qwen/Qwen2-VL-72B-Instruct"
 
 

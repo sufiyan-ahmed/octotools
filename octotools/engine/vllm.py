@@ -1,3 +1,6 @@
+# Ref: https://github.com/zou-group/textgrad/blob/main/textgrad/engine/vllm.py
+# TODO: To update the codebase to adapt to OctoTools
+
 try:
     from vllm import LLM, SamplingParams
 except ImportError:
@@ -37,12 +40,8 @@ class ChatVLLM(EngineLM, CachedEngine):
         # Add GPU memory utilization if not provided
         if 'gpu_memory_utilization' not in llm_config:
             llm_config['gpu_memory_utilization'] = 0.1 # Reduced to 60% to avoid Out of Memory errors
-
-        print(f"### Initializing VLLM client with config: {llm_config}")
-
         try:
             self.client = LLM(self.model_string, **llm_config)
-            print(f"### VLLM client initialized successfully")
 
         except RuntimeError as e:
             if "Failed to find C compiler" in str(e):
@@ -69,7 +68,6 @@ class ChatVLLM(EngineLM, CachedEngine):
 
         conversation += [{"role": "user", "content": prompt}]
         chat_str = str(conversation)
-        print(f"### Chat string: {chat_str}")
 
         sampling_params = SamplingParams(
             temperature=temperature, max_tokens=max_tokens, top_p=top_p, n=1

@@ -48,7 +48,6 @@ class Planner:
 
     def analyze_query(self, question: str, image: str) -> str:
         image_info = self.get_image_info(image)
-        print("image_info: ", image_info)
 
         query_prompt = f"""
 Task: Analyze the given query with accompanying inputs and determine the skills and tools needed to address it effectively.
@@ -300,9 +299,9 @@ IMPORTANT: Your response MUST end with either 'Conclusion: STOP' or 'Conclusion:
                     return conclusion
             
             # If no valid conclusion found, search for STOP or CONTINUE anywhere in the text
-            if 'stop' in response:
+            if 'stop' in response.lower():
                 return 'STOP'
-            elif 'continue' in response:
+            elif 'continue' in response.lower():
                 return 'CONTINUE'
             else:
                 print("No valid conclusion (STOP or CONTINUE) found in the response. Continuing...")
