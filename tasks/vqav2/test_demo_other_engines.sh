@@ -37,9 +37,9 @@ CACHE_DIR="$TASK/cache"
 # LLM="deepseek-chat"
 # LLM="deepseek-reasoner"
 
-# LLM="Qwen/Qwen2-VL-72B-Instruct"
-# LLM="Llama-4-Maverick-17B-128E-Instruct-FP8"
-# LLM="meta-llama/Llama-4-Scout-17B-16E-Instruct"
+# LLM="together-meta-llama/Llama-4-Scout-17B-16E-Instruct"
+LLM="together-Qwen/QwQ-32B"
+# LLM="together-Qwen/Qwen2-VL-72B-Instruct"
 
 # LLM="gemini-1.5-pro" # (verified)
 # LLM="gemini-1.5-flash-8b" # (verified)
@@ -50,7 +50,7 @@ CACHE_DIR="$TASK/cache"
 
 # LLM="grok-2-vision-1212"
 # LLM="grok-2-vision"
-LLM="grok-2-vision-latest"
+# LLM="grok-2-vision-latest"
 
 
 ENABLED_TOOLS="Generalist_Solution_Generator_Tool"
