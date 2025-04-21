@@ -27,7 +27,7 @@ class Solver:
         task_description: str,
         output_types: str = "base,final,direct",
         index: int = 0,
-        verbose: bool = True,
+        verbose: bool = False,
         max_steps: int = 10,
         max_time: int = 60,
         max_tokens: int = 4000,

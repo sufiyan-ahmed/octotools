@@ -7,12 +7,13 @@ from typing import Dict, Any, List, Tuple
 
 
 class Initializer:
-    def __init__(self, enabled_tools: List[str] = [], model_string: str = None):
+    def __init__(self, enabled_tools: List[str] = [], model_string: str = None, verbose: bool = False):
         self.toolbox_metadata = {}
         self.available_tools = []
         self.enabled_tools = enabled_tools
         self.load_all = self.enabled_tools == ["all"]
         self.model_string = model_string # llm model string
+        self.verbose = verbose
 
         print("\n==> Initializing octotools...")
         print(f"Enabled tools: {self.enabled_tools}")

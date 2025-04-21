@@ -44,7 +44,6 @@ Stay tuned, we're working on the following:
 - [X] Add support for Grok LLM
 - [X] Release Python package on PyPI
 - [ ] Add support for litellm LLM
-- [ ] Add support for vLLM LLM
 
 **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/kgUXdZHgNG) (the link may expire) or reach out to [Pan Lu](https://lupantech.github.io/) to get started!
 
@@ -93,7 +92,9 @@ We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Ge
 | Grok | `grok-2-vision-1212`, `grok-2-vision`, `grok-2-vision-latest` | `grok-3-mini-fast-beta`, `grok-3-mini-fast`, `grok-3-mini-fast-latest`, `grok-3-mini-beta`, `grok-3-mini`, `grok-3-mini-latest`, `grok-3-fast-beta`, `grok-3-fast`, `grok-3-fast-latest`, `grok-3-beta`, `grok-3`, `grok-3-latest` | [Grok Models](https://docs.x.ai/docs/models#models-and-pricing) |
 <!-- | vllm | Models such as ``  | Models such as `Qwen/Qwen2.5-1.5B-Instruct` | [vllm Models](https://docs.vllm.ai/en/latest/models/supported_models.html) | -->
 
-> Note: If you are using TogetherAI models, please ensure have the prefix 'together-' in the model string, for example, `together-meta-llama/Llama-4-Scout-17B-16E-Instruct`. If you are using VLLM models, please ensure have the prefix 'vllm-' in the model string, for example, `vllm-meta-llama/Llama-4-Scout-17B-16E-Instruct`. For other custom engines, you can edit the [factory.py](https://github.com/OctoTools/OctoTools/blob/main/octotools/engine/factory.py) file and add its interface file to add support for your engine. Your pull request will be warmly welcomed!
+> Note: If you are using TogetherAI models, please ensure have the prefix 'together-' in the model string, for example, `together-meta-llama/Llama-4-Scout-17B-16E-Instruct`.  For other custom engines, you can edit the [factory.py](https://github.com/OctoTools/OctoTools/blob/main/octotools/engine/factory.py) file and add its interface file to add support for your engine. Your pull request will be warmly welcomed!
+
+<!-- If you are using VLLM models, please ensure have the prefix 'vllm-' in the model string, for example, `vllm-meta-llama/Llama-4-Scout-17B-16E-Instruct`.  -->
 
 ## Installation
 
@@ -344,8 +345,7 @@ This project draws inspiration from several remarkable projects:
                 </a>
             </td>
             <td align="center">
-                <a href="https://rthapa84.github.io/">
-                    <img src="https://media.licdn.com/dms/image/v2/D5603AQFc9Bdg5VEPxQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1683671172066?e=1744848000&v=beta&t=c8FL4wKP0ynJIcB4foStA4G3C4ffkakw9Nm4G8f7-ps" height="100;" alt="rthapa84"/>
+                <a href="https://rthapa84.github.io/">                    <img src="https://rthapa84.github.io/assets/img/prof_pic.jpg?2e8380ce955beb4381c1f3918859cf5e" height="100" width="100" alt="rthapa84"/>
                     <br />
                     <sub><b>Rahul Thapa</b></sub>
                 </a>
