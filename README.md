@@ -159,27 +159,42 @@ sudo apt-get update
 sudo apt-get install parallel
 ```
 
-## Test the Default Solver
+## Quick Start
 
-In a brand new folder, paste the following code:
+In a brand new folder, paste the following code to set the API keys:
 ```py
-from octotools.solver import construct_solver
-
-# remember to put your API keys in .env
+# Remember to put your API keys in .env
 import dotenv
 dotenv.load_dotenv()
 
+# Or, you can set the API keys directly
+import os
+os.environ["OPENAI_API_KEY"] = "your_api_key"
+```
+
+Then, paste the following code to test the default solver:
+```py
+# Import the solver
+from octotools.solver import construct_solver
+
+# Set the LLM engine name
 llm_engine_name = "gpt-4o"
+
+# Construct the solver
 solver = construct_solver(llm_engine_name=llm_engine_name)
 
-print(solver.solve("What is the capital of France?"))
-# similarly, you could pass in a photo
-# print(solver.solve("What is the name of this item in French?", image_path="<PATH_TO_IMG>"))
+# Solve the user query
+output = solver.solve("What is the capital of France?")
+print(output["direct_output"])
+
+# Similarly, you could pass in a photo
+output = solver.solve("What is the name of this item in French?", image_path="<PATH_TO_IMG>")
+print(output["direct_output"])
 ```
+
 You should be able to see the output at the end, along with all the intermediate content.
 
-A more detailed jupyter notebook tutorial on the pipeline is coming soon. Stay tuned!
-
+More detailed jupyter notebook examples are available in the [examples/notebooks](https://github.com/octotools/octotools/tree/main/examples/notebooks) folder.
 
 ## Test Tools in the Toolbox (Need Test Scripts from Github)
 
