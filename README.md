@@ -7,26 +7,18 @@
 
 # OctoTools: An Agentic Framework with Extensible Tools for Complex Reasoning
 
-<!-- # <span style="color: #d41544">Octo</span><span style="color: #2176bc">Tools</span>: An Agentic Framework with Extendable Tools for Complex Reasoning -->
-
-<!-- <div align="center">
-<h1>
-  <span style="display: inline-block;">
-    <span style="color: #d41544">Octo</span><span style="color: #2176bc">Tools</span>: An Agentic Framework with Extendable Tools for Complex Reasoning
-  </span>
-</h1>
-</div> -->
 
 <!--- BADGES: START --->
 [![GitHub license](https://img.shields.io/badge/License-MIT-green.svg?logo=github)](https://lbesson.mit-license.org/)
 [![Arxiv](https://img.shields.io/badge/arXiv-2502.11271-B31B1B.svg?logo=arxiv)](https://arxiv.org/abs/2502.11271)
 [![Huggingface Demo](https://img.shields.io/badge/Huggingface-Demo-FFD21E.svg?logo=huggingface)](https://huggingface.co/spaces/OctoTools/octotools)
+[![PyPI](https://img.shields.io/badge/octotoolkit-0.1.2-2176BC?logo=python)](https://pypi.org/project/octotoolkit/)
 [![YouTube](https://img.shields.io/badge/YouTube-Tutorial-FF0000?logo=youtube)](https://www.youtube.com/watch?v=4828sGfx7dk)
+[![Website](https://img.shields.io/badge/Website-OctoTools-D41544?logo=octopusdeploy)](https://octotools.github.io/)
 [![Tool Cards](https://img.shields.io/badge/Tool_Cards-OctoTools-2176BC?logo=octopusdeploy)](https://octotools.github.io/#tool-cards)
 [![Visualization](https://img.shields.io/badge/Visualization-OctoTools-D41544?logo=octopusdeploy)](https://octotools.github.io/#visualization)
 [![Coverage](https://img.shields.io/badge/Coverage-OctoTools-2176BC.svg?logo=x)](https://x.com/lupantech/status/1892260474320015861)
 [![Discord](https://img.shields.io/badge/Discord-OctoTools-D41544?logo=discord)](https://discord.gg/F4x9m7Cf)
-
 <!--- BADGES: END --->
 
 
@@ -35,7 +27,7 @@
 
 ### News
 
-- **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/JQjpHDSM) to get started!
+- **2025-04-19** 📦: Released Python package on PyPI at [pypi.org/project/octotoolkit](https://pypi.org/project/octotoolkit)! Check out the [installation guide](https://github.com/octotools/octotools?tab=readme-ov-file#installation) for more details.
 - **2025-04-17** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://github.com/octotools/octotools?tab=readme-ov-file#supported-llm-engines).
 - **2025-03-08** 📺: Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
 - **2025-02-16** 📄: Our paper is now available as a preprint on ArXiv! Read it [here](https://arxiv.org/abs/2502.11271)!
@@ -50,9 +42,10 @@ Stay tuned, we're working on the following:
 - [X] Add support for DeepSeek LLM
 - [X] Add support for Gemini LLM
 - [X] Add support for Grok LLM
-- [ ] Add support for vLLM LLM
-- [ ] Release Python package on PyPI (coming soon!)
+- [X] Release Python package on PyPI
+- [ ] Add support for litellm LLM
 
+**TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/kgUXdZHgNG) (the link may expire) or reach out to [Pan Lu](https://lupantech.github.io/) to get started!
 
 ## Get Started
 
@@ -97,12 +90,15 @@ We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Ge
 | DeepSeek |  | `deepseek-chat`, `deepseek-reasoner` | [DeepSeek Models](https://api-docs.deepseek.com/quick_start/pricing) |
 | Gemini | `gemini-1.5-pro`, `gemini-1.5-flash-8b`, `gemini-1.5-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-flash`, `gemini-2.5-pro-preview-03-25` |  |  [Gemini Models](https://ai.google.dev/gemini-api/docs/models) |
 | Grok | `grok-2-vision-1212`, `grok-2-vision`, `grok-2-vision-latest` | `grok-3-mini-fast-beta`, `grok-3-mini-fast`, `grok-3-mini-fast-latest`, `grok-3-mini-beta`, `grok-3-mini`, `grok-3-mini-latest`, `grok-3-fast-beta`, `grok-3-fast`, `grok-3-fast-latest`, `grok-3-beta`, `grok-3`, `grok-3-latest` | [Grok Models](https://docs.x.ai/docs/models#models-and-pricing) |
-<!-- | vllm | Models including  | Models including | [vllm Models](https://docs.vllm.ai/en/latest/models/supported_models.html) | -->
+<!-- | vllm | Models such as ``  | Models such as `Qwen/Qwen2.5-1.5B-Instruct` | [vllm Models](https://docs.vllm.ai/en/latest/models/supported_models.html) | -->
 
+> Note: If you are using TogetherAI models, please ensure have the prefix 'together-' in the model string, for example, `together-meta-llama/Llama-4-Scout-17B-16E-Instruct`.  For other custom engines, you can edit the [factory.py](https://github.com/OctoTools/OctoTools/blob/main/octotools/engine/factory.py) file and add its interface file to add support for your engine. Your pull request will be warmly welcomed!
+
+<!-- If you are using VLLM models, please ensure have the prefix 'vllm-' in the model string, for example, `vllm-meta-llama/Llama-4-Scout-17B-16E-Instruct`.  -->
 
 ## Installation
 
-Currently, there are two ways to install OctoTools. For most use cases, standard installation would suffice. However, to replicate the [benchmarks](https://github.com/octotools/octotools/tree/main/tasks) mentioned in the original paper and to make your own edits to the code, you would need to several bash scripts from Github. An editable installation is recommended.
+Currently, there are two ways to install OctoTools. For most use cases, [standard installation](https://github.com/octotools/octotools?tab=readme-ov-file#1-standard-installation) would suffice. However, to replicate the [benchmarks](https://github.com/octotools/octotools/tree/main/tasks) mentioned in the original paper and to make your own edits to the code, you would need to several bash scripts from Github. An [editable installation](https://github.com/octotools/octotools?tab=readme-ov-file#2-editable-installation) is recommended.
 
 ### 1. Standard Installation
 
@@ -163,27 +159,42 @@ sudo apt-get update
 sudo apt-get install parallel
 ```
 
-## Test the Default Solver
+## Quick Start
 
-In a brand new folder, paste the following code:
+In a brand new folder, paste the following code to set the API keys:
 ```py
-from octotools.solver import construct_solver
-
-# remember to put your API keys in .env
+# Remember to put your API keys in .env
 import dotenv
 dotenv.load_dotenv()
 
+# Or, you can set the API keys directly
+import os
+os.environ["OPENAI_API_KEY"] = "your_api_key"
+```
+
+Then, paste the following code to test the default solver:
+```py
+# Import the solver
+from octotools.solver import construct_solver
+
+# Set the LLM engine name
 llm_engine_name = "gpt-4o"
+
+# Construct the solver
 solver = construct_solver(llm_engine_name=llm_engine_name)
 
-print(solver.solve("What is the capital of France?"))
-# similarly, you could pass in a photo
-# print(solver.solve("What is the name of this item in French?", image_path="<PATH_TO_IMG>"))
+# Solve the user query
+output = solver.solve("What is the capital of France?")
+print(output["direct_output"])
+
+# Similarly, you could pass in a photo
+output = solver.solve("What is the name of this item in French?", image_path="<PATH_TO_IMG>")
+print(output["direct_output"])
 ```
+
 You should be able to see the output at the end, along with all the intermediate content.
 
-A more detailed jupyter notebook tutorial on the pipeline is coming soon. Stay tuned!
-
+More detailed jupyter notebook examples are available in the [examples/notebooks](https://github.com/octotools/octotools/tree/main/examples/notebooks) folder.
 
 ## Test Tools in the Toolbox (Need Test Scripts from Github)
 
@@ -349,8 +360,7 @@ This project draws inspiration from several remarkable projects:
                 </a>
             </td>
             <td align="center">
-                <a href="https://rthapa84.github.io/">
-                    <img src="https://media.licdn.com/dms/image/v2/D5603AQFc9Bdg5VEPxQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1683671172066?e=1744848000&v=beta&t=c8FL4wKP0ynJIcB4foStA4G3C4ffkakw9Nm4G8f7-ps" height="100;" alt="rthapa84"/>
+                <a href="https://rthapa84.github.io/">                    <img src="https://rthapa84.github.io/assets/img/prof_pic.jpg?2e8380ce955beb4381c1f3918859cf5e" height="100" width="100" alt="rthapa84"/>
                     <br />
                     <sub><b>Rahul Thapa</b></sub>
                 </a>
@@ -374,20 +384,18 @@ This project draws inspiration from several remarkable projects:
 </table>
 
 
-
 ### Contributors
 
 We are trully looking forward to the open-source contributions to OctoTools! If you are interested in contributing, collaborating, or reporting issues, don't hesitate to contact us!
 
 We are also looking forward to your feedback and suggestions!
 
+### Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=octotools/octotools&type=Date)](https://www.star-history.com/#octotools/octotools&Date)
+
 <p align="right" style="font-size: 14px; color: #2176bc; margin-top: 20px;">
   <a href="#readme-top" style="text-decoration: none; color: blue; font-weight: bold;">
     ↑ Back to Top ↑
   </a>
 </p>
-
-
-### Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=octotools/octotools&type=Date)](https://www.star-history.com/#octotools/octotools&Date)

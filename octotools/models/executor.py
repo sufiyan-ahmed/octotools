@@ -17,12 +17,13 @@ def timeout_handler(signum, frame):
     raise TimeoutError("Function execution timed out")
 
 class Executor:
-    def __init__(self, llm_engine_name: str, root_cache_dir: str = "solver_cache",  num_threads: int = 1, max_time: int = 120, max_output_length: int = 100000):
+    def __init__(self, llm_engine_name: str, root_cache_dir: str = "solver_cache",  num_threads: int = 1, max_time: int = 120, max_output_length: int = 100000, verbose: bool = False):
         self.llm_engine_name = llm_engine_name
         self.root_cache_dir = root_cache_dir
         self.num_threads = num_threads
         self.max_time = max_time
         self.max_output_length = max_output_length
+        self.verbose = verbose
 
     def set_query_cache_dir(self, query_cache_dir):
         if query_cache_dir:
@@ -145,11 +146,16 @@ Remember: Your response MUST end with the Generated Command, which should be val
             return re.sub(r'^```python\s*', '', code).rstrip('```').strip()
         
         if isinstance(response, ToolCommand):
+            analysis = response.analysis.strip()
             explanation = response.explanation.strip()
             command = response.command.strip()
         else:
+            # Extract analysis
+            analysis_pattern = r"Analysis:(.*?)Command Explanation"
+            analysis_match = re.search(analysis_pattern, response, re.DOTALL)
+            analysis = analysis_match.group(1).strip() if analysis_match else "No analysis found."
             # Extract explanation
-            explanation_pattern = r"Command Explanation:(.*?)Generated Command:"
+            explanation_pattern = r"Command Explanation:(.*?)Generated Command"
             explanation_match = re.search(explanation_pattern, response, re.DOTALL)
             explanation = explanation_match.group(1).strip() if explanation_match else "No explanation found."
             # Extract command
@@ -158,7 +164,8 @@ Remember: Your response MUST end with the Generated Command, which should be val
             command = command_match.group(1).strip() if command_match else "No command found."
 
         command = normalize_code(command)
-        return explanation, command
+
+        return analysis, explanation, command
 
     def execute_tool_command(self, tool_name: str, command: str) -> Any:
         """
@@ -197,9 +204,6 @@ Remember: Your response MUST end with the Generated Command, which should be val
 
         # Import the tool module and instantiate it
         module_name = f"tools.{tool_name.lower().replace('_tool', '')}.tool"
-        
-        # print(f"Attempting to import module: {module_name}")
-        # print(f"Current sys.path: {sys.path}")
 
         try:
             # Dynamically import the module

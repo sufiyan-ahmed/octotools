@@ -109,9 +109,9 @@ class ChatTogether(EngineLM, CachedEngine):
             if cache_or_none is not None:
                 return cache_or_none
 
-        # Adjust max_tokens to ensure total tokens don't exceed Together's limit
-        MAX_TOTAL_TOKENS = 8000
-        max_tokens = min(max_tokens, MAX_TOTAL_TOKENS - 1000)
+        # # Adjust max_tokens to ensure total tokens don't exceed Together's limit
+        # MAX_TOTAL_TOKENS = 8000
+        # max_tokens = min(max_tokens, MAX_TOTAL_TOKENS - 1000)
 
         response = self.client.chat.completions.create(
             model=self.model_string,
@@ -144,9 +144,9 @@ class ChatTogether(EngineLM, CachedEngine):
             if cache_or_none is not None:
                 return cache_or_none
 
-        # Adjust max_tokens to ensure total tokens don't exceed Together's limit
-        MAX_TOTAL_TOKENS = 8000
-        max_tokens = min(max_tokens, MAX_TOTAL_TOKENS - 1000)
+        # # Adjust max_tokens to ensure total tokens don't exceed Together's limit
+        # MAX_TOTAL_TOKENS = 8000
+        # max_tokens = min(max_tokens, MAX_TOTAL_TOKENS - 1000)
 
         response = self.client.chat.completions.create(
             model=self.model_string,

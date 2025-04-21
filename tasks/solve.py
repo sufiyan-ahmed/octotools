@@ -27,7 +27,7 @@ class Solver:
         task_description: str,
         output_types: str = "base,final,direct",
         index: int = 0,
-        verbose: bool = True,
+        verbose: bool = False,
         max_steps: int = 10,
         max_time: int = 60,
         max_tokens: int = 4000,
@@ -215,8 +215,6 @@ class Solver:
 
                     # Execute the tool command
                     result = self.executor.execute_tool_command(tool_name, command)
-                    print("!!! type of result: ", type(result))
-
                     result = make_json_serializable_truncated(result) # Convert to JSON serializable format
 
                     if self.verbose:
@@ -359,7 +357,6 @@ def main(args):
         llm_engine_name=args.llm_engine_name,
         root_cache_dir=args.root_cache_dir
     )
-
 
     # Instantiate Solver
     solver = Solver(

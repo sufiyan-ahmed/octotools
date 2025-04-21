@@ -43,7 +43,7 @@ class Relevant_Patch_Zoomer_Tool(BaseTool):
             "E": "center"
         }
 
-        print(f"\nInitializing Patch Zoomer Tool with model: {model_string}")
+        print(f"Initializing Patch Zoomer Tool with model: {model_string}")
         self.llm_engine = create_llm_engine(model_string=model_string, is_multimodal=True) if model_string else None
         
     def _save_patch(self, image_path, patch, save_path, zoom_factor=2):

@@ -8,13 +8,13 @@ from octotools.models.memory import Memory
 from octotools.models.formatters import QueryAnalysis, NextStep, MemoryVerification
 
 class Planner:
-    def __init__(self, llm_engine_name: str, toolbox_metadata: dict = None, available_tools: List = None):
+    def __init__(self, llm_engine_name: str, toolbox_metadata: dict = None, available_tools: List = None, verbose: bool = False):
         self.llm_engine_name = llm_engine_name
         self.llm_engine_mm = create_llm_engine(model_string=llm_engine_name, is_multimodal=True)
         self.llm_engine = create_llm_engine(model_string=llm_engine_name, is_multimodal=False)
         self.toolbox_metadata = toolbox_metadata if toolbox_metadata is not None else {}
         self.available_tools = available_tools if available_tools is not None else []
-
+        self.verbose = verbose
     def get_image_info(self, image_path: str) -> Dict[str, Any]:
         image_info = {}
         if image_path and os.path.isfile(image_path):
@@ -48,7 +48,6 @@ class Planner:
 
     def analyze_query(self, question: str, image: str) -> str:
         image_info = self.get_image_info(image)
-        print("image_info: ", image_info)
 
         query_prompt = f"""
 Task: Analyze the given query with accompanying inputs and determine the skills and tools needed to address it effectively.
@@ -278,35 +277,33 @@ IMPORTANT: Your response MUST end with either 'Conclusion: STOP' or 'Conclusion:
 
     def extract_conclusion(self, response: Any) -> str:
         if isinstance(response, MemoryVerification):
+            analysis = response.analysis
             stop_signal = response.stop_signal
             if stop_signal:
-                return 'STOP'
+                return analysis, 'STOP'
             else:
-                return 'CONTINUE'
+                return analysis, 'CONTINUE'
         else:
+            analysis = response
             pattern = r'conclusion\**:?\s*\**\s*(\w+)'
-            # Search for the pattern
-            # match = re.search(pattern, response, re.IGNORECASE | re.DOTALL)
-            
+            matches = list(re.finditer(pattern, response, re.IGNORECASE | re.DOTALL))
             # if match:
             #     conclusion = match.group(1).upper()
             #     if conclusion in ['STOP', 'CONTINUE']:
             #         return conclusion
-            
-            matches = list(re.finditer(pattern, response, re.IGNORECASE | re.DOTALL))
             if matches:
                 conclusion = matches[-1].group(1).upper()
                 if conclusion in ['STOP', 'CONTINUE']:
-                    return conclusion
+                    return analysis, conclusion
             
             # If no valid conclusion found, search for STOP or CONTINUE anywhere in the text
-            if 'stop' in response:
-                return 'STOP'
-            elif 'continue' in response:
-                return 'CONTINUE'
+            if 'stop' in response.lower():
+                return analysis, 'STOP'
+            elif 'continue' in response.lower():
+                return analysis, 'CONTINUE'
             else:
                 print("No valid conclusion (STOP or CONTINUE) found in the response. Continuing...")
-                return 'CONTINUE'
+                return analysis, 'CONTINUE'
 
     def generate_final_output(self, question: str, image: str, memory: Memory) -> str:
         image_info = self.get_image_info(image)

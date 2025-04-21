@@ -30,6 +30,11 @@ class ChatGemini(EngineLM, CachedEngine):
         is_multimodal: bool=False,
     ):
         self.use_cache = use_cache
+        self.model_string = model_string
+        self.system_prompt = system_prompt
+        assert isinstance(self.system_prompt, str)
+        self.is_multimodal = is_multimodal
+
         if self.use_cache:
             root = platformdirs.user_cache_dir("octotools")
             cache_path = os.path.join(root, f"cache_gemini_{model_string}.db")
@@ -39,11 +44,7 @@ class ChatGemini(EngineLM, CachedEngine):
             raise ValueError("Please set the GOOGLE_API_KEY environment variable if you'd like to use Gemini models.")
         
         genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-        
-        self.model_string = model_string
-        self.system_prompt = system_prompt
-        assert isinstance(self.system_prompt, str)
-        self.is_multimodal = is_multimodal
+
 
     def __call__(self, prompt, **kwargs):
         return self.generate(prompt, **kwargs)

@@ -1,3 +1,6 @@
+# Ref: https://github.com/zou-group/textgrad/blob/main/textgrad/engine/vllm.py
+# TODO: To update the codebase to adapt to OctoTools
+
 try:
     from vllm import LLM, SamplingParams
 except ImportError:
@@ -9,6 +12,8 @@ import os
 import platformdirs
 from .base import EngineLM, CachedEngine
 
+import torch._dynamo
+torch._dynamo.config.suppress_errors = True
 
 class ChatVLLM(EngineLM, CachedEngine):
     # Default system prompt for VLLM models
@@ -17,17 +22,36 @@ class ChatVLLM(EngineLM, CachedEngine):
     def __init__(
         self,
         model_string="meta-llama/Meta-Llama-3-8B-Instruct",
+        use_cache: bool=False,
         system_prompt=DEFAULT_SYSTEM_PROMPT,
+        is_multimodal: bool=False,
         **llm_config,
     ):
-        root = platformdirs.user_cache_dir("octotools")
-        cache_path = os.path.join(root, f"cache_vllm_{model_string}.db")
-        super().__init__(cache_path=cache_path)
-
+        self.use_cache = use_cache
         self.model_string = model_string
         self.system_prompt = system_prompt
-        self.client = LLM(self.model_string, **llm_config)
-        self.tokenizer = self.client.get_tokenizer()
+        self.is_multimodal = is_multimodal
+
+        if self.use_cache:
+            root = platformdirs.user_cache_dir("octotools")
+            cache_path = os.path.join(root, f"cache_vllm_{model_string}.db")
+            super().__init__(cache_path=cache_path)
+        
+        # Add GPU memory utilization if not provided
+        if 'gpu_memory_utilization' not in llm_config:
+            llm_config['gpu_memory_utilization'] = 0.1 # Reduced to 60% to avoid Out of Memory errors
+        try:
+            self.client = LLM(self.model_string, **llm_config)
+
+        except RuntimeError as e:
+            if "Failed to find C compiler" in str(e):
+                raise RuntimeError(
+                    "VLLM requires a C compiler to be installed. Please install gcc/g++ and try again. "
+                    "On Ubuntu/Debian: `sudo apt-get install build-essential`\n"
+                    "On CentOS/RHEL: `sudo yum groupinstall 'Development Tools'`\n"
+                    "On macOS: Install Xcode Command Line Tools"
+                ) from e
+            raise
 
     def generate(
         self, prompt, system_prompt=None, temperature=0, max_tokens=2000, top_p=0.99
@@ -43,13 +67,13 @@ class ChatVLLM(EngineLM, CachedEngine):
             conversation = [{"role": "system", "content": sys_prompt_arg}]
 
         conversation += [{"role": "user", "content": prompt}]
-        chat_str = self.tokenizer.apply_chat_template(conversation, tokenize=False)
+        chat_str = str(conversation)
 
         sampling_params = SamplingParams(
             temperature=temperature, max_tokens=max_tokens, top_p=top_p, n=1
         )
 
-        response = self.client.generate([chat_str], sampling_params)
+        response = self.client.generate(chat_str, sampling_params)
         response = response[0].outputs[0].text
 
         self._save_cache(sys_prompt_arg + prompt, response)
