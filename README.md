@@ -43,7 +43,8 @@ Stay tuned, we're working on the following:
 - [X] Add support for Gemini LLM
 - [X] Add support for Grok LLM
 - [X] Release Python package on PyPI
-- [ ] Add support for litellm LLM
+- [ ] Add support for vLLM LLM (to support custom models, in progress)
+- [ ] Add support for litellm LLM (to support API models)
 
 **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/kgUXdZHgNG) (the link may expire) or reach out to [Pan Lu](https://lupantech.github.io/) to get started!
 
