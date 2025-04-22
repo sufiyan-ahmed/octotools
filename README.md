@@ -18,7 +18,8 @@
 [![Tool Cards](https://img.shields.io/badge/Tool_Cards-OctoTools-2176BC?logo=octopusdeploy)](https://octotools.github.io/#tool-cards)
 [![Visualization](https://img.shields.io/badge/Visualization-OctoTools-D41544?logo=octopusdeploy)](https://octotools.github.io/#visualization)
 [![Coverage](https://img.shields.io/badge/Coverage-OctoTools-2176BC.svg?logo=x)](https://x.com/lupantech/status/1892260474320015861)
-[![Discord](https://img.shields.io/badge/Discord-OctoTools-D41544?logo=discord)](https://discord.gg/kgUXdZHgNG)
+[![Slack](https://img.shields.io/badge/Slack-OctoTools-D41544.svg?logo=slack)](https://join.slack.com/t/octotools/shared_invite/zt-3485ikfas-zMTbFbuodJmET~R6KXHEGw)
+<!-- [![Discord](https://img.shields.io/badge/Discord-OctoTools-D41544?logo=discord)](https://discord.gg/kgUXdZHgNG) -->
 <!--- BADGES: END --->
 
 
@@ -46,7 +47,7 @@ Stay tuned, we're working on the following:
 - [ ] Add support for vLLM LLM (to support custom models, in progress)
 - [ ] Add support for litellm LLM (to support API models)
 
-**TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Discord](https://discord.gg/kgUXdZHgNG) (the link may expire) or reach out to [Pan Lu](https://lupantech.github.io/) to get started!
+**TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Slack](https://join.slack.com/t/octotools/shared_invite/zt-3485ikfas-zMTbFbuodJmET~R6KXHEGw) or reach out to [Pan Lu](https://lupantech.github.io/) to get started!
 
 ## Get Started
 

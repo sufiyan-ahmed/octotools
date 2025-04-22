@@ -68,7 +68,7 @@ CACHE_DIR="$TASK/cache"
 # LLM="grok-3"
 # LLM="grok-3-latest"
 
-# LLM="vllm-Qwen/Qwen2.5-1.5B-Instruct"
+LLM="vllm-Qwen/Qwen2.5-1.5B-Instruct"
 # LLM="vllm-allenai/OLMo-1B-hf"
 
 ENABLED_TOOLS="Generalist_Solution_Generator_Tool"
