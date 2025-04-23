@@ -31,8 +31,17 @@ class DefaultFormat(BaseModel):
 
 
 def validate_structured_output_model(model_string: str):
+    """
+    TODO: add more models that support structured outputs as follows:
+    o3-mini-2025-01-31
+    o4-mini-2025-04-16
+    o1-2024-12-17
+    o3-2025-04-16
+    o1-pro-2025-03-19
+    """
     # Ref: https://platform.openai.com/docs/guides/structured-outputs
-    return any(x in model_string for x in ["gpt-4o", "gpt-4o-mini"])
+    Structure_Output_Models = ["gpt-4o", "gpt-4o-mini", "gpt-4.1", "gpt-4.1-mini", "gpt-4.1-nano"]
+    return any(x in model_string for x in Structure_Output_Models)
 
 def validate_chat_model(model_string: str):
     return any(x in model_string for x in ["gpt"])
