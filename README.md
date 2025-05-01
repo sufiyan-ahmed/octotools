@@ -52,7 +52,7 @@ Stay tuned, we're working on the following:
 ## Get Started
 
 ### step-by-step tutorial
-Here is a detaild explanation and tutorial on octotools [here](https://github.com/fikird/octotools/tutorials)
+Here is a detaild explanation and tutorial on octotools [here](https://github.com/fikird/octotools/tree/main/tutorials)
 ### YouTube Tutorial
 
 Excited to have a tutorial video for OctoTools covered by [Discover AI](https://www.youtube.com/@code4AI) at YouTube!
