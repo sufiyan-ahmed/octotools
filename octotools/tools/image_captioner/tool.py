@@ -1,6 +1,6 @@
 import os
 from octotools.tools.base import BaseTool
-from octotools.engine.openai import ChatOpenAI
+from octotools.engine.factory import create_llm_engine
 
 class Image_Captioner_Tool(BaseTool):
     require_llm_engine = True
@@ -29,8 +29,8 @@ class Image_Captioner_Tool(BaseTool):
                 "limitation": "The Image_Captioner_Tool provides general image descriptions but has limitations: 1) May make mistakes in complex scenes, counting, attribute detection, and understanding object relationships. 2) Might not generate comprehensive captions, especially for images with multiple objects or abstract concepts. 3) Performance varies with image complexity. 4) Struggles with culturally specific or domain-specific content. 5) May overlook details or misinterpret object relationships. For precise descriptions, consider: using it with other tools for context/verification, as an initial step before refinement, or in multi-step processes for ambiguity resolution. Verify critical information with specialized tools or human expertise when necessary."
             },
         )
-        print(f"\nInitializing Image Captioner Tool with model: {model_string}")
-        self.llm_engine = ChatOpenAI(model_string=model_string, is_multimodal=True) if model_string else None
+        print(f"Initializing Image Captioner Tool with model: {model_string}")
+        self.llm_engine = create_llm_engine(model_string=model_string, is_multimodal=True) if model_string else None
 
     def execute(self, image, prompt="Describe this image in detail."):
         try:

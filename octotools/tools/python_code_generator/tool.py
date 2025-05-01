@@ -8,7 +8,7 @@ import contextlib
 
 import threading
 from octotools.tools.base import BaseTool
-from octotools.engine.openai import ChatOpenAI
+from octotools.engine.factory import create_llm_engine
 
 import signal
 from contextlib import contextmanager
@@ -100,8 +100,8 @@ class Python_Code_Generator_Tool(BaseTool):
                 ]
             }
         )
-        print(f"\nInitializing Python_Code_Generator_Tool with model_string: {model_string}")
-        self.llm_engine = ChatOpenAI(model_string=model_string, is_multimodal=False) if model_string else None
+        print(f"Initializing Python_Code_Generator_Tool with model_string: {model_string}")
+        self.llm_engine = create_llm_engine(model_string=model_string, is_multimodal=False) if model_string else None
 
     @staticmethod
     def preprocess_code(code):

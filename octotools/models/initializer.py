@@ -7,15 +7,17 @@ from typing import Dict, Any, List, Tuple
 
 
 class Initializer:
-    def __init__(self, enabled_tools: List[str] = [], model_string: str = None):
+    def __init__(self, enabled_tools: List[str] = [], model_string: str = None, verbose: bool = False):
         self.toolbox_metadata = {}
         self.available_tools = []
         self.enabled_tools = enabled_tools
+        self.load_all = self.enabled_tools == ["all"]
         self.model_string = model_string # llm model string
+        self.verbose = verbose
 
-        print("\nInitializing octotools...")
+        print("\n==> Initializing octotools...")
         print(f"Enabled tools: {self.enabled_tools}")
-        print(f"LLM model string: {self.model_string}")
+        print(f"LLM engine name: {self.model_string}")
         self._set_up_tools()
 
     def get_project_root(self):
@@ -31,10 +33,9 @@ class Initializer:
         print("Loading tools and getting metadata...")
         self.toolbox_metadata = {}
         octotools_dir = self.get_project_root()
-        tools_dir = os.path.join(octotools_dir, 'tools')
-        
-        print(f"octotools directory: {octotools_dir}")
-        print(f"Tools directory: {tools_dir}")
+        tools_dir = os.path.join(octotools_dir, 'tools')        
+        # print(f"octotools directory: {octotools_dir}")
+        # print(f"Tools directory: {tools_dir}")
         
         # Add the octotools directory and its parent to the Python path
         sys.path.insert(0, octotools_dir)
@@ -47,14 +48,14 @@ class Initializer:
 
         for root, dirs, files in os.walk(tools_dir):
             # print(f"\nScanning directory: {root}")
-            if 'tool.py' in files and os.path.basename(root) in self.available_tools:
+            if 'tool.py' in files and (self.load_all or os.path.basename(root) in self.available_tools):
                 file = 'tool.py'
                 module_path = os.path.join(root, file)
                 module_name = os.path.splitext(file)[0]
                 relative_path = os.path.relpath(module_path, octotools_dir)
                 import_path = '.'.join(os.path.split(relative_path)).replace(os.sep, '.')[:-3]
 
-                print(f"\nAttempting to import: {import_path}")
+                print(f"\n==> Attempting to import: {import_path}")
                 try:
                     module = importlib.import_module(import_path)
                     for name, obj in inspect.getmembers(module):
@@ -77,22 +78,22 @@ class Initializer:
                                     'user_metadata': getattr(tool_instance, 'user_metadata', {}), # This is a placeholder for user-defined metadata
                                     'require_llm_engine': getattr(obj, 'require_llm_engine', False),
                                 }
-                                print(f"\nMetadata for {name}: {self.toolbox_metadata[name]}")
+                                print(f"Metadata for {name}: {self.toolbox_metadata[name]}")
                             except Exception as e:
                                 print(f"Error instantiating {name}: {str(e)}")
                 except Exception as e:
                     print(f"Error loading module {module_name}: {str(e)}")
                     
-        print(f"\nTotal number of tools loaded: {len(self.toolbox_metadata)}")
+        print(f"\n==> Total number of tools imported: {len(self.toolbox_metadata)}")
 
         return self.toolbox_metadata
 
     def run_demo_commands(self) -> List[str]:
-        print("\nRunning demo commands for each tool...")
+        print("\n==> Running demo commands for each tool...")
         self.available_tools = []
 
         for tool_name, tool_data in self.toolbox_metadata.items():
-            print(f"\nChecking availability of {tool_name}...")
+            print(f"Checking availability of {tool_name}...")
 
             try:
                 # Import the tool module
@@ -114,13 +115,13 @@ class Initializer:
 
         # update the toolmetadata with the available tools
         self.toolbox_metadata = {tool: self.toolbox_metadata[tool] for tool in self.available_tools}
-        print(f"\nUpdated total number of available tools: {len(self.toolbox_metadata)}")
-        print(f"\nAvailable tools: {self.available_tools}")
-
+        print("\n✅ Finished running demo commands for each tool.")
+        # print(f"Updated total number of available tools: {len(self.toolbox_metadata)}")
+        # print(f"Available tools: {self.available_tools}")
         return self.available_tools
     
     def _set_up_tools(self) -> None:
-        print("Setting up tools...")
+        print("\n==> Setting up tools...")
 
         # Keep enabled tools
         self.available_tools = [tool.lower().replace('_tool', '') for tool in self.enabled_tools]
@@ -133,10 +134,9 @@ class Initializer:
         
         # Filter toolbox_metadata to include only available tools
         self.toolbox_metadata = {tool: self.toolbox_metadata[tool] for tool in self.available_tools}
-        
-        print(f"\nTotal number of available tools: {len(self.available_tools)}")
-        print(f"Available tools: {self.available_tools}")
-        print(f"Enabled tools: {self.enabled_tools}")
+        print("✅ Finished setting up tools.")
+        print(f"✅ Total number of final available tools: {len(self.available_tools)}")
+        print(f"✅ Final available tools: {self.available_tools}")
 
 
 if __name__ == "__main__":
