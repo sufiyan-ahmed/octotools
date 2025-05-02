@@ -197,7 +197,7 @@ print(output["direct_output"])
 
 You should be able to see the output at the end, along with all the intermediate content.
 
-More detailed jupyter notebook examples are available in the [examples/notebooks](https://github.com/fikird/octotools/tree/main/examples/notebooks) folder.
+More detailed jupyter notebook examples are available in the [examples/notebooks](https://github.com/octotools/octotools/tree/main/examples/notebooks) folder.
 
 ## Test Tools in the Toolbox (Need Test Scripts from Github)
 
@@ -308,11 +308,11 @@ The design of each tool card is modular relative to the **OctoTools** framework,
 
 To customize **OctoTools** for your own tasks:
 
-1. **Add a new tool card**: Implement your tool following the structure in [existing tools](https://github.com/fikird/OctoTools/tree/main/octotools/tools).
+1. **Add a new tool card**: Implement your tool following the structure in [existing tools](https://github.com/octotools/OctoTools/tree/main/octotools/tools).
 
-2. **Replace or update existing tools**: You can replace or update tools in the toolbox. For example, we provide the [`Object_Detector_Tool`](https://github.com/fikird/OctoTools/blob/main/octotools/tools/object_detector/tool.py) to detect objects in images using an open-source model. We also provide an alternative tool called the [`Advanced_Object_Detector_Tool`](https://github.com/OctoTools/OctoTools/blob/main/octotools/tools/advanced_object_detector/tool.py) to detect objects in images using API calls.
+2. **Replace or update existing tools**: You can replace or update tools in the toolbox. For example, we provide the [`Object_Detector_Tool`](https://github.com/octotools/OctoTools/blob/main/octotools/tools/object_detector/tool.py) to detect objects in images using an open-source model. We also provide an alternative tool called the [`Advanced_Object_Detector_Tool`](https://github.com/OctoTools/OctoTools/blob/main/octotools/tools/advanced_object_detector/tool.py) to detect objects in images using API calls.
 
-3. **Enable tools for your tasks**: You can enable the whole toolset or a subset of tools for your own tasks by setting the `enabled_tools` argument in [tasks/solve.py](https://github.com/fikird/OctoTools/blob/main/octotools/tasks/solve.py).
+3. **Enable tools for your tasks**: You can enable the whole toolset or a subset of tools for your own tasks by setting the `enabled_tools` argument in [tasks/solve.py](https://github.com/octotools/OctoTools/blob/main/octotools/tasks/solve.py).
 
 
 ## Resources
