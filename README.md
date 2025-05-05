@@ -51,7 +51,8 @@ Stay tuned, we're working on the following:
 
 ## Get Started
 
-
+### step-by-step tutorial
+Here is a detaild explanation and tutorial on octotools [here](https://github.com/octotools/octotools/tree/main/tutorials)
 ### YouTube Tutorial
 
 Excited to have a tutorial video for OctoTools covered by [Discover AI](https://www.youtube.com/@code4AI) at YouTube!
@@ -307,11 +308,11 @@ The design of each tool card is modular relative to the **OctoTools** framework,
 
 To customize **OctoTools** for your own tasks:
 
-1. **Add a new tool card**: Implement your tool following the structure in [existing tools](https://github.com/OctoTools/OctoTools/tree/main/octotools/tools).
+1. **Add a new tool card**: Implement your tool following the structure in [existing tools](https://github.com/octotools/OctoTools/tree/main/octotools/tools).
 
-2. **Replace or update existing tools**: You can replace or update tools in the toolbox. For example, we provide the [`Object_Detector_Tool`](https://github.com/OctoTools/OctoTools/blob/main/octotools/tools/object_detector/tool.py) to detect objects in images using an open-source model. We also provide an alternative tool called the [`Advanced_Object_Detector_Tool`](https://github.com/OctoTools/OctoTools/blob/main/octotools/tools/advanced_object_detector/tool.py) to detect objects in images using API calls.
+2. **Replace or update existing tools**: You can replace or update tools in the toolbox. For example, we provide the [`Object_Detector_Tool`](https://github.com/octotools/OctoTools/blob/main/octotools/tools/object_detector/tool.py) to detect objects in images using an open-source model. We also provide an alternative tool called the [`Advanced_Object_Detector_Tool`](https://github.com/OctoTools/OctoTools/blob/main/octotools/tools/advanced_object_detector/tool.py) to detect objects in images using API calls.
 
-3. **Enable tools for your tasks**: You can enable the whole toolset or a subset of tools for your own tasks by setting the `enabled_tools` argument in [tasks/solve.py](https://github.com/OctoTools/OctoTools/blob/main/octotools/tasks/solve.py).
+3. **Enable tools for your tasks**: You can enable the whole toolset or a subset of tools for your own tasks by setting the `enabled_tools` argument in [tasks/solve.py](https://github.com/octotools/OctoTools/blob/main/octotools/tasks/solve.py).
 
 
 ## Resources
