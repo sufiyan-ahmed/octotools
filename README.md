@@ -28,6 +28,7 @@
 
 ### News
 
+- **2024-05-03**: 🏆 Excited to announce that OctoTools won the Best Paper Award at the [KnowledgeNLP Workshop - NAACL 2025](https://knowledge-nlp.github.io/naacl2025/index.html)! Check out our oral presentation slides [here](https://github.com/octotools/octotools/blob/refs/heads/main/assets/KnowledgeNLP_2025.05.03.pdf).
 - **2025-04-19** 📦: Released Python package on PyPI at [pypi.org/project/octotoolkit](https://pypi.org/project/octotoolkit)! Check out the [installation guide](https://github.com/octotools/octotools?tab=readme-ov-file#installation) for more details.
 - **2025-04-17** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://github.com/octotools/octotools?tab=readme-ov-file#supported-llm-engines).
 - **2025-03-08** 📺: Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
@@ -51,7 +52,7 @@ Stay tuned, we're working on the following:
 
 ## Get Started
 
-### step-by-step tutorial
+### Step-by-step Tutorial
 Here is a detaild explanation and tutorial on octotools [here](https://github.com/octotools/octotools/tree/main/tutorials)
 ### YouTube Tutorial
 
@@ -73,7 +74,7 @@ We introduce **OctoTools**, a training-free, user-friendly, and easily extensibl
 ![framework_overall](https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/models/framework_overall.png)
 ![framework_example](https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/models/framework_example.png)
 
-We validate **OctoTools**’ generality across 16 diverse tasks (including MathVista, MMLU-Pro, MedQA, and GAIA-Text), achieving substantial average accuracy gains of 9.3% over GPT-4o. Furthermore, **OctoTools** also outperforms AutoGen, GPT-Functions and LangChain by up to 10.6% when given the same set of tools.
+We validate **OctoTools**' generality across 16 diverse tasks (including MathVista, MMLU-Pro, MedQA, and GAIA-Text), achieving substantial average accuracy gains of 9.3% over GPT-4o. Furthermore, **OctoTools** also outperforms AutoGen, GPT-Functions and LangChain by up to 10.6% when given the same set of tools.
 
 <p align="center">  
     <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/result/main_scores_bar_chart.png" width="50%">
