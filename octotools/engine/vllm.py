@@ -46,12 +46,16 @@ class ChatVLLM(EngineLM, CachedEngine):
             os.makedirs(self.image_cache_dir, exist_ok=True)
             super().__init__(cache_path=cache_path)
         
-        self.client = OpenAI(
-            base_url="http://localhost:8000/v1"
-        )
+        try:
+            self.client = OpenAI(
+                base_url="http://localhost:8888/v1",
+                api_key="dummy-token",
+            )
+        except Exception as e:
+            raise ValueError(f"Failed to connect to VLLM server. Please ensure the server is running and try again. Please ensure that the model is running at localhost:8888.")
 
         if self.client.models.list().data[0].id != self.model_string:
-            raise ValueError(f"In order to use VLLM to run local models, run 'vllm serve <model_name>' in the terminal first to launch the VLLM server.")
+            raise ValueError(f"The VLLM server is running, but the model {self.model_string} is not available. Please check the model name and try again.")
 
 
     def generate(self, content: Union[str, List[Union[str, bytes]]], system_prompt=None, **kwargs):
