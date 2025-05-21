@@ -5,20 +5,24 @@ import inspect
 import traceback
 from typing import Dict, Any, List, Tuple
 
-
 class Initializer:
-    def __init__(self, enabled_tools: List[str] = [], model_string: str = None, verbose: bool = False):
+    def __init__(self, enabled_tools: List[str] = [], model_string: str = None, verbose: bool = False, vllm_config_path: str = None):
         self.toolbox_metadata = {}
         self.available_tools = []
         self.enabled_tools = enabled_tools
         self.load_all = self.enabled_tools == ["all"]
         self.model_string = model_string # llm model string
         self.verbose = verbose
-
+        self.vllm_server_process = None
+        self.vllm_config_path = vllm_config_path
         print("\n==> Initializing octotools...")
         print(f"Enabled tools: {self.enabled_tools}")
         print(f"LLM engine name: {self.model_string}")
         self._set_up_tools()
+        
+        # if vllm, set up the vllm server
+        if model_string.startswith("vllm-"):
+            self.setup_vllm_server()
 
     def get_project_root(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -138,6 +142,44 @@ class Initializer:
         print(f"✅ Total number of final available tools: {len(self.available_tools)}")
         print(f"✅ Final available tools: {self.available_tools}")
 
+    def setup_vllm_server(self) -> None:
+        # Check if vllm is installed
+        try:
+            import vllm
+        except ImportError:
+            raise ImportError("If you'd like to use VLLM models, please install the vllm package by running `pip install vllm`.")
+        
+        # Start the VLLM server
+        command = ["vllm", "serve", self.model_string.replace("vllm-", ""), "--port", "8888"]
+        if self.vllm_config_path is not None:
+            command = ["vllm", "serve", "--config", self.vllm_config_path, "--port", "8888"]
+
+        import subprocess
+        vllm_process = subprocess.Popen(
+            command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            universal_newlines=True
+        )
+        
+        print("Starting VLLM server...")
+        while True:
+            output = vllm_process.stdout.readline()
+            error = vllm_process.stderr.readline()
+            if output.strip() != "":
+                print("VLLM server standard output:", output.strip())
+            if error.strip() != "":
+                print("VLLM server standard error:", error.strip())
+
+            if "Application startup complete." in output or "Application startup complete." in error:
+                print("VLLM server started successfully.")
+                break
+
+            if vllm_process.poll() is not None:
+                print("VLLM server process terminated unexpectedly. Please check the output above for more information.")
+                break
+
+        self.vllm_server_process = vllm_process
 
 if __name__ == "__main__":
     enabled_tools = ["Generalist_Solution_Generator_Tool"]
