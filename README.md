@@ -28,6 +28,9 @@
 
 ### News
 
+- **2025-05-19** 📄: A great re-implementation of the OctoTools framework is available [here](https://github.com/themtok/autogen-octotools)! Thank you [Maciek Tokarski](https://github.com/themtok) for your contribution!
+- **2024-05-03**: 🏆 Excited to announce that OctoTools won the Best Paper Award at the [KnowledgeNLP Workshop - NAACL 2025](https://knowledge-nlp.github.io/naacl2025/index.html)! Check out our oral presentation slides [here](https://lupantech.github.io/docs/KnowledgeNLP_2025.05.03.pdf).
+- **2025-05-01** 📚: A comprehensive tutorial on OctoTools is now available [here](https://github.com/octotools/octotools/tree/main/tutorials). Special thanks to [@fikird](https://github.com/fikird) for creating this detailed guide!
 - **2025-04-19** 📦: Released Python package on PyPI at [pypi.org/project/octotoolkit](https://pypi.org/project/octotoolkit)! Check out the [installation guide](https://github.com/octotools/octotools?tab=readme-ov-file#installation) for more details.
 - **2025-04-17** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://github.com/octotools/octotools?tab=readme-ov-file#supported-llm-engines).
 - **2025-03-08** 📺: Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
@@ -51,6 +54,8 @@ Stay tuned, we're working on the following:
 
 ## Get Started
 
+### Step-by-step Tutorial
+Here is a detaild explanation and tutorial on octotools [here](https://github.com/octotools/octotools/tree/main/tutorials).
 
 ### YouTube Tutorial
 
@@ -72,7 +77,7 @@ We introduce **OctoTools**, a training-free, user-friendly, and easily extensibl
 ![framework_overall](https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/models/framework_overall.png)
 ![framework_example](https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/models/framework_example.png)
 
-We validate **OctoTools**’ generality across 16 diverse tasks (including MathVista, MMLU-Pro, MedQA, and GAIA-Text), achieving substantial average accuracy gains of 9.3% over GPT-4o. Furthermore, **OctoTools** also outperforms AutoGen, GPT-Functions and LangChain by up to 10.6% when given the same set of tools.
+We validate **OctoTools**' generality across 16 diverse tasks (including MathVista, MMLU-Pro, MedQA, and GAIA-Text), achieving substantial average accuracy gains of 9.3% over GPT-4o. Furthermore, **OctoTools** also outperforms AutoGen, GPT-Functions and LangChain by up to 10.6% when given the same set of tools.
 
 <p align="center">  
     <img src="https://raw.githubusercontent.com/octotools/octotools/refs/heads/main/assets/result/main_scores_bar_chart.png" width="50%">
@@ -109,6 +114,7 @@ Create a conda environment and install the dependencies:
 ```sh
 conda create -n octotools python=3.10
 conda activate octotools
+# Alternatively, you can use: `source activate octotools` if the above command does not work
 pip install octotoolkit
 ```
 
@@ -307,11 +313,11 @@ The design of each tool card is modular relative to the **OctoTools** framework,
 
 To customize **OctoTools** for your own tasks:
 
-1. **Add a new tool card**: Implement your tool following the structure in [existing tools](https://github.com/OctoTools/OctoTools/tree/main/octotools/tools).
+1. **Add a new tool card**: Implement your tool following the structure in [existing tools](https://github.com/octotools/OctoTools/tree/main/octotools/tools).
 
-2. **Replace or update existing tools**: You can replace or update tools in the toolbox. For example, we provide the [`Object_Detector_Tool`](https://github.com/OctoTools/OctoTools/blob/main/octotools/tools/object_detector/tool.py) to detect objects in images using an open-source model. We also provide an alternative tool called the [`Advanced_Object_Detector_Tool`](https://github.com/OctoTools/OctoTools/blob/main/octotools/tools/advanced_object_detector/tool.py) to detect objects in images using API calls.
+2. **Replace or update existing tools**: You can replace or update tools in the toolbox. For example, we provide the [`Object_Detector_Tool`](https://github.com/octotools/OctoTools/blob/main/octotools/tools/object_detector/tool.py) to detect objects in images using an open-source model. We also provide an alternative tool called the [`Advanced_Object_Detector_Tool`](https://github.com/OctoTools/OctoTools/blob/main/octotools/tools/advanced_object_detector/tool.py) to detect objects in images using API calls.
 
-3. **Enable tools for your tasks**: You can enable the whole toolset or a subset of tools for your own tasks by setting the `enabled_tools` argument in [tasks/solve.py](https://github.com/OctoTools/OctoTools/blob/main/octotools/tasks/solve.py).
+3. **Enable tools for your tasks**: You can enable the whole toolset or a subset of tools for your own tasks by setting the `enabled_tools` argument in [tasks/solve.py](https://github.com/octotools/OctoTools/blob/main/octotools/tasks/solve.py).
 
 
 ## Resources
