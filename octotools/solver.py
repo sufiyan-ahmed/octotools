@@ -189,13 +189,15 @@ def construct_solver(llm_engine_name : str = "gpt-4o",
                      max_time : int = 300,
                      max_tokens : int = 4000,
                      root_cache_dir : str = "solver_cache",
-                     verbose : bool = True):
+                     verbose : bool = True,
+                     vllm_config_path : str = None):
     
     # Instantiate Initializer
     initializer = Initializer(
         enabled_tools=enabled_tools,
         model_string=llm_engine_name,
         verbose=verbose,
+        vllm_config_path=vllm_config_path,
     )
 
     # Instantiate Planner
