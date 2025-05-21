@@ -28,13 +28,14 @@
 
 ### News
 
-- **2025-05-19** 📄: A great re-implementation of the OctoTools framework is available [here](https://github.com/themtok/autogen-octotools)! Thank you [Maciek Tokarski](https://github.com/themtok) for your contribution!
+- **2025-05-21**: 📄 Added support for vLLM LLM. Now you can use any vLLM-supported models and your local checkpoint models. Check out the [example notebook](https://github.com/octotools/octotools/blob/main/examples/notebooks/baseball_query_local_model_qwen.ipynb) for more details.
+- **2025-05-19**: 📄 A great re-implementation of the OctoTools framework is available [here](https://github.com/themtok/autogen-octotools)! Thank you [Maciek Tokarski](https://github.com/themtok) for your contribution!
 - **2024-05-03**: 🏆 Excited to announce that OctoTools won the Best Paper Award at the [KnowledgeNLP Workshop - NAACL 2025](https://knowledge-nlp.github.io/naacl2025/index.html)! Check out our oral presentation slides [here](https://lupantech.github.io/docs/KnowledgeNLP_2025.05.03.pdf).
-- **2025-05-01** 📚: A comprehensive tutorial on OctoTools is now available [here](https://github.com/octotools/octotools/tree/main/tutorials). Special thanks to [@fikird](https://github.com/fikird) for creating this detailed guide!
-- **2025-04-19** 📦: Released Python package on PyPI at [pypi.org/project/octotoolkit](https://pypi.org/project/octotoolkit)! Check out the [installation guide](https://github.com/octotools/octotools?tab=readme-ov-file#installation) for more details.
-- **2025-04-17** 🚀: Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://github.com/octotools/octotools?tab=readme-ov-file#supported-llm-engines).
-- **2025-03-08** 📺: Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
-- **2025-02-16** 📄: Our paper is now available as a preprint on ArXiv! Read it [here](https://arxiv.org/abs/2502.11271)!
+- **2025-05-01**: 📚 A comprehensive tutorial on OctoTools is now available [here](https://github.com/octotools/octotools/tree/main/tutorials). Special thanks to [@fikird](https://github.com/fikird) for creating this detailed guide!
+- **2025-04-19**: 📦 Released Python package on PyPI at [pypi.org/project/octotoolkit](https://pypi.org/project/octotoolkit)! Check out the [installation guide](https://github.com/octotools/octotools?tab=readme-ov-file#installation) for more details.
+- **2025-04-17**: 🚀 Support for a broader range of LLM engines is available now! See the full list of supported LLM engines [here](https://github.com/octotools/octotools?tab=readme-ov-file#supported-llm-engines).
+- **2025-03-08**: 📺 Thrilled to have OctoTools featured in a tutorial by [Discover AI](https://www.youtube.com/@code4AI) at YouTube! Watch the engaging video [here](https://www.youtube.com/watch?v=4828sGfx7dk).
+- **2025-02-16**: 📄 Our paper is now available as a preprint on ArXiv! Read it [here](https://arxiv.org/abs/2502.11271)!
 
 
 ### TODO
@@ -47,7 +48,7 @@ Stay tuned, we're working on the following:
 - [X] Add support for Gemini LLM
 - [X] Add support for Grok LLM
 - [X] Release Python package on PyPI
-- [ ] Add support for vLLM LLM (to support custom models, in progress)
+- [X] Add support for vLLM LLM
 - [ ] Add support for litellm LLM (to support API models)
 
 **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Slack](https://join.slack.com/t/octotools/shared_invite/zt-3485ikfas-zMTbFbuodJmET~R6KXHEGw) or reach out to [Pan Lu](https://lupantech.github.io/) to get started!
