@@ -14,7 +14,7 @@ To test the text detection tool, follow these steps:
 2. **Run the Text Detection Tool:**
 
    ```sh
-   cd toolbox-agent
+   cd octotools
    export PYTHONPATH=$(pwd)
    ```
 
