@@ -4,7 +4,7 @@ import importlib
 import inspect
 import traceback
 from typing import Dict, Any, List, Tuple
-
+import time
 class Initializer:
     def __init__(self, enabled_tools: List[str] = [], model_string: str = None, verbose: bool = False, vllm_config_path: str = None):
         self.toolbox_metadata = {}
@@ -166,6 +166,7 @@ class Initializer:
         while True:
             output = vllm_process.stdout.readline()
             error = vllm_process.stderr.readline()
+            time.sleep(5)
             if output.strip() != "":
                 print("VLLM server standard output:", output.strip())
             if error.strip() != "":
