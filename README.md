@@ -98,7 +98,7 @@ We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Ge
 | DeepSeek |  | `deepseek-chat`, `deepseek-reasoner` | [DeepSeek Models](https://api-docs.deepseek.com/quick_start/pricing) |
 | Gemini | `gemini-1.5-pro`, `gemini-1.5-flash-8b`, `gemini-1.5-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-flash`, `gemini-2.5-pro-preview-03-25` |  |  [Gemini Models](https://ai.google.dev/gemini-api/docs/models) |
 | Grok | `grok-2-vision-1212`, `grok-2-vision`, `grok-2-vision-latest` | `grok-3-mini-fast-beta`, `grok-3-mini-fast`, `grok-3-mini-fast-latest`, `grok-3-mini-beta`, `grok-3-mini`, `grok-3-mini-latest`, `grok-3-fast-beta`, `grok-3-fast`, `grok-3-fast-latest`, `grok-3-beta`, `grok-3`, `grok-3-latest` | [Grok Models](https://docs.x.ai/docs/models#models-and-pricing) |
-| vLLM | Various vLLM-supported models, for example, `Qwen/Qwen2.5-VL-3B-Instruct`. You can also use local checkpoint models for customization and local inference. (Example: [Qwen/Qwen2.5-VL-3B-Instruct](https://github.com/octotools/octotools/blob/main/examples/notebooks/baseball_query_local_model_qwen.ipynb))| Various vLLM-supported models, for example, `Qwen/Qwen2.5-1.5B-Instruct`. You can also use local checkpoint models for customization and local inference. | [vLLM Models](https://docs.vllm.ai/en/latest/models/supported_models.html) |
+| vLLM | Various vLLM-supported models, for example, `Qwen2.5-VL-3B-Instruct` and `Qwen2.5-VL-72B-Instruct`. You can also use local checkpoint models for customization and local inference. ([Example-1](https://github.com/octotools/octotools/blob/main/examples/notebooks/baseball_query_local_model_qwen.ipynb), [Example-2](https://github.com/octotools/octotools/blob/main/examples/notebooks/baseball_query_parallel_inference.ipynb))| Various vLLM-supported models, for example, `Qwen2.5-1.5B-Instruct`. You can also use local checkpoint models for customization and local inference. | [vLLM Models](https://docs.vllm.ai/en/latest/models/supported_models.html) |
 
 > Note: If you are using TogetherAI models, please ensure have the prefix 'together-' in the model string, for example, `together-meta-llama/Llama-4-Scout-17B-16E-Instruct`.  For other custom engines, you can edit the [factory.py](https://github.com/OctoTools/OctoTools/blob/main/octotools/engine/factory.py) file and add its interface file to add support for your engine. Your pull request will be warmly welcomed! If you are using VLLM models, please ensure have the prefix 'vllm-' in the model string, for example, `vllm-meta-llama/Llama-4-Scout-17B-16E-Instruct`. 
 
@@ -341,7 +341,7 @@ This project draws inspiration from several remarkable projects:
 }
 ```
 
-### Our Team
+### Our Codebase Contributors
 <table>
 	<tbody>
 		<tr>
@@ -367,12 +367,18 @@ This project draws inspiration from several remarkable projects:
                 </a>
             </td>
             <td align="center">
-                <a href="https://rthapa84.github.io/">                    <img src="https://rthapa84.github.io/assets/img/prof_pic.jpg?2e8380ce955beb4381c1f3918859cf5e" height="100" width="100" alt="rthapa84"/>
+                <a href="https://rthapa84.github.io/">                    <img src="https://media.licdn.com/dms/image/v2/D5603AQFc9Bdg5VEPxQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1683671172066?e=1753920000&v=beta&t=Y7FAxD28U3xvEGaNee5or2xlB_tbWsKxqcSfZMIgN9E" width="100" alt="rthapa84"/>
                     <br />
                     <sub><b>Rahul Thapa</b></sub>
                 </a>
             </td>
             <td align="center">
+                <a href="https://tonyxia2001.github.io/">                    <img src="https://media.licdn.com/dms/image/v2/C5603AQFnnPx5RamWdw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1660326674599?e=1753920000&v=beta&t=XjibnBlLae70Yi7GmSu279l4FPfh0wSbCl08D_5QOWk" width="100" alt="rthapa84"/>
+                    <br />
+                    <sub><b>Tony Xia</b></sub>
+                </a>
+            </td>
+            <!-- <td align="center">
                 <a href="https://dbds.stanford.edu/people/joseph-boen/">
                     <img src="https://dbds.stanford.edu/wp-content/uploads/2023/08/joseph-boen.jpg)" width="100;" alt="josephboen"/>
                     <br />
@@ -385,7 +391,7 @@ This project draws inspiration from several remarkable projects:
                     <br />
                     <sub><b>James Zou</b></sub>
                 </a>
-            </td>
+            </td> -->
 		</tr>
 	<tbody>
 </table>
@@ -393,7 +399,7 @@ This project draws inspiration from several remarkable projects:
 
 ### Contributors
 
-We are trully looking forward to the open-source contributions to OctoTools! If you are interested in contributing, collaborating, or reporting issues, don't hesitate to contact us!
+We are truly looking forward to open-source contributions to OctoTools! If you are interested in contributing, collaborating, or reporting issues, don't hesitate to contact us at [panlu@stanford.edu](mailto:panlu@stanford.edu) or join our Slack channel [OctoTools](https://join.slack.com/t/octotools/shared_invite/zt-3485ikfas-zMTbFbuodJmET~R6KXHEGw).
 
 We are also looking forward to your feedback and suggestions!
 
