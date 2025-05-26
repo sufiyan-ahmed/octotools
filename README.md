@@ -12,7 +12,7 @@
 [![GitHub license](https://img.shields.io/badge/License-MIT-green.svg?logo=github)](https://lbesson.mit-license.org/)
 [![Arxiv](https://img.shields.io/badge/arXiv-2502.11271-B31B1B.svg?logo=arxiv)](https://arxiv.org/abs/2502.11271)
 [![Huggingface Demo](https://img.shields.io/badge/Huggingface-Demo-FFD21E.svg?logo=huggingface)](https://huggingface.co/spaces/OctoTools/octotools)
-[![PyPI](https://img.shields.io/badge/octotoolkit-0.2.0-2176BC?logo=python)](https://pypi.org/project/octotoolkit/)
+[![PyPI](https://img.shields.io/badge/octotoolkit-0.3.1-2176BC?logo=python)](https://pypi.org/project/octotoolkit/)
 [![YouTube](https://img.shields.io/badge/YouTube-Tutorial-FF0000?logo=youtube)](https://www.youtube.com/watch?v=4828sGfx7dk)
 [![Website](https://img.shields.io/badge/Website-OctoTools-D41544?logo=octopusdeploy)](https://octotools.github.io/)
 [![Tool Cards](https://img.shields.io/badge/Tool_Cards-OctoTools-2176BC?logo=octopusdeploy)](https://octotools.github.io/#tool-cards)
@@ -49,7 +49,7 @@ Stay tuned, we're working on the following:
 - [X] Add support for Grok LLM
 - [X] Release Python package on PyPI
 - [X] Add support for vLLM LLM
-- [ ] Add support for litellm LLM (to support API models)
+<!-- - [ ] Add support for litellm LLM (to support API models) -->
 
 **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Slack](https://join.slack.com/t/octotools/shared_invite/zt-3485ikfas-zMTbFbuodJmET~R6KXHEGw) or reach out to [Pan Lu](https://lupantech.github.io/) to get started!
 
