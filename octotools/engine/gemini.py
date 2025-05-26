@@ -1,10 +1,14 @@
 # Ref: https://github.com/zou-group/textgrad/blob/main/textgrad/engine/gemini.py
 # Ref: https://ai.google.dev/gemini-api/docs/quickstart?lang=python
+# Changed to use the new google-genai package May 25, 2025
+# Ref: https://ai.google.dev/gemini-api/docs/migrate
 
 try:
-    import google.generativeai as genai
+    # import google.generativeai as genai
+    from google import genai
+    from google.genai import types
 except ImportError:
-    raise ImportError("If you'd like to use Gemini models, please install the google-generativeai package by running `pip install google-generativeai`, and add 'GOOGLE_API_KEY' to your environment variables.")
+    raise ImportError("If you'd like to use Gemini models, please install the google-genai package by running `pip install google-genai`, and add 'GOOGLE_API_KEY' to your environment variables.")
 
 import os
 import platformdirs
@@ -18,6 +22,8 @@ import json
 from typing import List, Union
 from .base import EngineLM, CachedEngine
 from .engine_utils import get_image_type_from_bytes
+import io
+from PIL import Image
 
 class ChatGemini(EngineLM, CachedEngine):
     SYSTEM_PROMPT = "You are a helpful, creative, and smart assistant."
@@ -43,7 +49,7 @@ class ChatGemini(EngineLM, CachedEngine):
         if os.getenv("GOOGLE_API_KEY") is None:
             raise ValueError("Please set the GOOGLE_API_KEY environment variable if you'd like to use Gemini models.")
         
-        genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+        self.client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
 
     def __call__(self, prompt, **kwargs):
@@ -71,17 +77,19 @@ class ChatGemini(EngineLM, CachedEngine):
             if cache_or_none is not None:
                 return cache_or_none
 
-        client = genai.GenerativeModel(self.model_string,
-                                     system_instruction=sys_prompt_arg)
-        messages = [{'role': 'user', 'parts': [prompt]}]
-        generation_config = genai.types.GenerationConfig(
-            max_output_tokens=max_tokens,
-            temperature=temperature,
-            top_p=top_p,
-            candidate_count=1
+        # messages = [{'role': 'user', 'parts': [prompt]}]
+        messages = [prompt]
+        response = self.client.models.generate_content(
+            model=self.model_string,
+            contents=messages,
+            config=types.GenerateContentConfig(
+                system_instruction=sys_prompt_arg,
+                max_output_tokens=max_tokens,
+                temperature=temperature,
+                top_p=top_p,
+                candidate_count=1
+            )
         )
-        
-        response = client.generate_content(messages, generation_config=generation_config)
         response_text = response.text
 
         if self.use_cache:
@@ -92,13 +100,8 @@ class ChatGemini(EngineLM, CachedEngine):
         formatted_content = []
         for item in content:
             if isinstance(item, bytes):
-                image_type = get_image_type_from_bytes(item)
-                image_media_type = f"image/{image_type}"
-                base64_image = base64.b64encode(item).decode('utf-8')
-                formatted_content.append({
-                    "mime_type": image_media_type,
-                    "data": base64_image
-                })
+                image_obj = Image.open(io.BytesIO(item))
+                formatted_content.append(image_obj)
             elif isinstance(item, str):
                 formatted_content.append(item)
             else:
@@ -117,16 +120,17 @@ class ChatGemini(EngineLM, CachedEngine):
             if cache_or_none is not None:
                 return cache_or_none
 
-        client = genai.GenerativeModel(self.model_string,
-                                     system_instruction=sys_prompt_arg)
-        generation_config = genai.types.GenerationConfig(
-            max_output_tokens=max_tokens,
-            temperature=temperature,
-            top_p=top_p,
-            candidate_count=1
+        response = self.client.models.generate_content(
+            model=self.model_string,
+            contents=formatted_content,
+            config=types.GenerateContentConfig(
+                system_instruction=sys_prompt_arg,
+                max_output_tokens=max_tokens,
+                temperature=temperature,
+                top_p=top_p,
+                candidate_count=1
+            )
         )
-
-        response = client.generate_content(formatted_content, generation_config=generation_config)
         response_text = response.text
 
         if self.use_cache:

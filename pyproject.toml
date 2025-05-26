@@ -11,24 +11,7 @@ authors = [
 description = "An effective and easy-to-use agentic framework with extendable tools for complex reasoning."
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = [
-  "anthropic==0.40.0",
-  "openai==1.75.0",
-  "together==1.5.4",
-  "google-generativeai==0.8.5",
-  "diskcache==5.6.3",
-  "easyocr==1.7.2",
-  "metapub==0.5.12",
-  "pillow==11.1.0",
-  "platformdirs==4.3.6",
-  "pymed==0.8.9",
-  "python-dotenv==1.0.1",
-  "sympy==1.13.1",
-  "tenacity==9.0.0",
-  "transformers==4.49.0",
-  "wikipedia==1.4.0",
-  "vllm==0.8.5"
-]
+dynamic = ["dependencies"]
 
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -39,6 +22,9 @@ license-files = ["LICEN[CS]E*"]
 
 [tool.setuptools.packages.find]
 where = ["."]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
 
 [project.urls]
 Homepage = "https://octotools.github.io"
