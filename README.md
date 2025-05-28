@@ -18,7 +18,7 @@
 [![Tool Cards](https://img.shields.io/badge/Tool_Cards-OctoTools-2176BC?logo=octopusdeploy)](https://octotools.github.io/#tool-cards)
 [![Visualization](https://img.shields.io/badge/Visualization-OctoTools-D41544?logo=octopusdeploy)](https://octotools.github.io/#visualization)
 [![Coverage](https://img.shields.io/badge/Coverage-OctoTools-2176BC.svg?logo=x)](https://x.com/lupantech/status/1892260474320015861)
-[![Slack](https://img.shields.io/badge/Slack-OctoTools-D41544.svg?logo=slack)](https://join.slack.com/t/octotools/shared_invite/zt-3485ikfas-zMTbFbuodJmET~R6KXHEGw)
+[![Slack](https://img.shields.io/badge/Slack-OctoTools-D41544.svg?logo=slack)](https://join.slack.com/t/octotools/shared_invite/zt-366nga1zb-8E3xtrKPw_j~jm_S9Pfs5Q)
 <!-- [![Discord](https://img.shields.io/badge/Discord-OctoTools-D41544?logo=discord)](https://discord.gg/kgUXdZHgNG) -->
 <!--- BADGES: END --->
 
