@@ -208,7 +208,7 @@ More detailed jupyter notebook examples are available in the [examples/notebooks
 Using `Python_Code_Generator_Tool` as an example, test the availability of the tool by running the following:
 
 ```sh
-cd src/octotools/tools/python_code_generator
+cd octotools/tools/python_code_generator
 python tool.py
 ```
 
@@ -221,7 +221,7 @@ Execution Result: {'printed_output': 'The sum of all the numbers in the list is:
 You can also test all tools available in the toolbox by running the following:
 
 ```sh
-cd src/octotools/tools
+cd octotools/tools
 source test_all_tools.sh
 ```
 
@@ -248,7 +248,7 @@ Failed: 0
 Using [CLEVR-Math](https://huggingface.co/datasets/dali-does/clevr-math) as an example, run inference on a benchmark by:
 
 ```sh
-cd src/octotools/tasks
+cd octotools/tasks
 
 # Run inference from clevr-math using GPT-4 only
 source clevr-math/run_gpt4o.sh
