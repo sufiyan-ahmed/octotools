@@ -250,7 +250,7 @@ class Solver:
                     print("#"*50)
                     print(f"\n==>Extracted Conclusion:\n{conclusion}")
 
-                if conclusion == 'STOP':
+                if conclusion[1] == 'STOP':
                     break
 
             # Check if we've hit a limit
