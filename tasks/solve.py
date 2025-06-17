@@ -241,7 +241,7 @@ class Solver:
                     query_analysis, 
                     self.memory
                 )
-                conclusion = self.planner.extract_conclusion(stop_verification)
+                context_verification, conclusion = self.planner.extract_conclusion(stop_verification)
                 
                 if self.verbose:
                     print(f"\n## [{step_count}] Stopping Verification:")
@@ -250,7 +250,7 @@ class Solver:
                     print("#"*50)
                     print(f"\n==>Extracted Conclusion:\n{conclusion}")
 
-                if conclusion[1] == 'STOP':
+                if conclusion == 'STOP':
                     break
 
             # Check if we've hit a limit
