@@ -155,7 +155,7 @@ class Solver:
                     print(f"[Time]: {round(time.time() - local_start_time, 2)}s")
                 
                 # Break the loop if the context is verified
-                if conclusion[1] == 'STOP':
+                if conclusion == 'STOP':
                     break
 
             # Add memory and statistics to json_data
