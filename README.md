@@ -28,6 +28,7 @@
 
 ### News
 
+- **2025-06-25**: 📄 Added backend support for Azure OpenAI. Thanks [@sufiyan-ahmed](https://github.com/sufiyan-ahmed) for your contribution!
 - **2025-05-21**: 📄 Added support for vLLM LLM. Now you can use any vLLM-supported models and your local checkpoint models. Check out the [example notebook](https://github.com/octotools/octotools/blob/main/examples/notebooks/baseball_query_local_model_qwen.ipynb) for more details.
 - **2025-05-19**: 📄 A great re-implementation of the OctoTools framework is available [here](https://github.com/themtok/autogen-octotools)! Thank you [Maciek Tokarski](https://github.com/themtok) for your contribution!
 - **2024-05-03**: 🏆 Excited to announce that OctoTools won the Best Paper Award at the [KnowledgeNLP Workshop - NAACL 2025](https://knowledge-nlp.github.io/naacl2025/index.html)! Check out our oral presentation slides [here](https://lupantech.github.io/docs/KnowledgeNLP_2025.05.03.pdf).
@@ -49,6 +50,7 @@ Stay tuned, we're working on the following:
 - [X] Add support for Grok LLM
 - [X] Release Python package on PyPI
 - [X] Add support for vLLM LLM
+- [X] Add support for Azure OpenAI
 - [ ] Add support for litellm LLM (to support API models)
 
 **TBD**: We're excited to collaborate with the community to expand OctoTools to more tools, domains, and beyond! Join our [Slack](https://join.slack.com/t/octotools/shared_invite/zt-3485ikfas-zMTbFbuodJmET~R6KXHEGw) or reach out to [Pan Lu](https://lupantech.github.io/) to get started!
@@ -93,12 +95,14 @@ We support a broad range of LLM engines, including GPT-4o, Claude 3.5 Sonnet, Ge
 | Model Family | Engines (Multi-modal) | Engines (Text-Only) | Official Model List |
 |--------------|-------------------|--------------------| -------------------- |
 | OpenAI | `gpt-4-turbo`, `gpt-4o`, `gpt-4o-mini`,  `gpt-4.1`,  `gpt-4.1-mini`, `gpt-4.1-nano`, `o1`, `o3`, `o1-pro`, `o4-mini` | `gpt-3.5-turbo`, `gpt-4`, `o1-mini`, `o3-mini` | [OpenAI Models](https://platform.openai.com/docs/models) |
+| Azure OpenAI | `gpt-4o`, `gpt-4o-mini`, `gpt-4.1`, `gpt-4.1-mini`, `gpt-4.1-nano`, `o1`, `o3`, `o1-pro`, `o4-mini` | `gpt-3.5-turbo`, `gpt-4`, `o1-mini`, `o3-mini` | [Azure OpenAI Models](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#models) |
 | Anthropic | `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `claude-3-opus-20240229`, `claude-3-5-sonnet-20240620`, `claude-3-5-sonnet-20241022`, `claude-3-5-haiku-20241022`, `claude-3-7-sonnet-20250219` | | [Anthropic Models](https://docs.anthropic.com/en/docs/about-claude/models/all-models) |
 | TogetherAI | Most multi-modal models, including `meta-llama/Llama-4-Scout-17B-16E-Instruct`, `Qwen/QwQ-32B`, `Qwen/Qwen2-VL-72B-Instruct` | Most text-only models, including `meta-llama/Llama-3-70b-chat-hf`, `Qwen/Qwen2-72B-Instruct` | [TogetherAI Models](https://api.together.ai/models) |
 | DeepSeek |  | `deepseek-chat`, `deepseek-reasoner` | [DeepSeek Models](https://api-docs.deepseek.com/quick_start/pricing) |
 | Gemini | `gemini-1.5-pro`, `gemini-1.5-flash-8b`, `gemini-1.5-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-flash`, `gemini-2.5-pro-preview-03-25` |  |  [Gemini Models](https://ai.google.dev/gemini-api/docs/models) |
 | Grok | `grok-2-vision-1212`, `grok-2-vision`, `grok-2-vision-latest` | `grok-3-mini-fast-beta`, `grok-3-mini-fast`, `grok-3-mini-fast-latest`, `grok-3-mini-beta`, `grok-3-mini`, `grok-3-mini-latest`, `grok-3-fast-beta`, `grok-3-fast`, `grok-3-fast-latest`, `grok-3-beta`, `grok-3`, `grok-3-latest` | [Grok Models](https://docs.x.ai/docs/models#models-and-pricing) |
 | vLLM | Various vLLM-supported models, for example, `Qwen2.5-VL-3B-Instruct` and `Qwen2.5-VL-72B-Instruct`. You can also use local checkpoint models for customization and local inference. ([Example-1](https://github.com/octotools/octotools/blob/main/examples/notebooks/baseball_query_local_model_qwen.ipynb), [Example-2](https://github.com/octotools/octotools/blob/main/examples/notebooks/baseball_query_parallel_inference.ipynb))| Various vLLM-supported models, for example, `Qwen2.5-1.5B-Instruct`. You can also use local checkpoint models for customization and local inference. | [vLLM Models](https://docs.vllm.ai/en/latest/models/supported_models.html) |
+
 
 > Note: If you are using TogetherAI models, please ensure have the prefix 'together-' in the model string, for example, `together-meta-llama/Llama-4-Scout-17B-16E-Instruct`.  For other custom engines, you can edit the [factory.py](https://github.com/OctoTools/OctoTools/blob/main/octotools/engine/factory.py) file and add its interface file to add support for your engine. Your pull request will be warmly welcomed! If you are using VLLM models, please ensure have the prefix 'vllm-' in the model string, for example, `vllm-meta-llama/Llama-4-Scout-17B-16E-Instruct`. 
 
