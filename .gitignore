@@ -179,3 +179,6 @@ local_model/
 
 # [Octotools] ignore all files in examples/notebooks/local_model/
 examples/notebooks/local_model/*
+
+#Vscode settings
+.vscode/
