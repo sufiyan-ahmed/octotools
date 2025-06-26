@@ -1,0 +1,15 @@
+To transport the goat across the river without it being eaten, the farmer should follow these steps:
+
+1. **First Trip:** The farmer takes the goat across the river and leaves it on the other side.
+   
+2. **Return Trip:** The farmer returns to the original side alone.
+
+3. **Second Trip:** The farmer then takes the wolf across the river. Upon reaching the other side, he leaves the wolf but takes the goat back with him to the original side.
+   
+4. **Third Trip:** The farmer leaves the goat on the original side and takes the cabbage across the river.
+
+5. **Return Trip:** After leaving the cabbage with the wolf on the opposite side, the farmer returns alone to the original side.
+
+6. **Final Trip:** The farmer takes the goat across the river one final time.
+
+Now, all three - the farmer, the goat, the wolf, and the cabbage - are safely on the other side without any getting eaten.
