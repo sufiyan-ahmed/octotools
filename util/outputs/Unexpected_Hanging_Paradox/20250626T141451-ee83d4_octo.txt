@@ -1,0 +1,18 @@
+The scenario presented is a classic example of the "Unexpected Hanging Paradox" or "Surprise Examination Paradox." Here's a breakdown of the situation and the reasoning involved:
+
+1. **Setup**: A prisoner is informed that he will be executed on a weekday (Monday through Friday) and that the execution will be a surprise to him. This means he will not know the day of the execution until it happens.
+
+2. **Prisoner's Reasoning**:
+   - **Friday**: The prisoner reasons that if he hasn't been executed by Thursday, the execution must be on Friday. However, if he knows this, it wouldn't be a surprise. Therefore, he concludes he cannot be executed on Friday.
+   - **Thursday**: With Friday eliminated, the prisoner reasons that if he hasn't been executed by Wednesday, the execution must be on Thursday. But knowing this would also mean it isn't a surprise. So, he concludes he cannot be executed on Thursday either.
+   - **Wednesday**: By similar reasoning, if he hasn't been executed by Tuesday, the execution must be on Wednesday, which wouldn't be a surprise. Thus, he rules out Wednesday.
+   - **Tuesday**: If he hasn't been executed by Monday, the execution must be on Tuesday, which again wouldn't be a surprise. So, he rules out Tuesday.
+   - **Monday**: Finally, he concludes that if he hasn't been executed by Sunday, the execution must be on Monday, which wouldn't be a surprise. Thus, he rules out Monday.
+
+3. **Conclusion**: The prisoner concludes that he cannot be executed on any day without it being a surprise, which seems to imply he cannot be executed at all.
+
+4. **Resolution of the Paradox**: Despite the prisoner's reasoning, the execution can still occur on any day and be a surprise. For instance, if the execution happens on Friday, and the prisoner has convinced himself it cannot happen, it would indeed be a surprise.
+
+5. **Execution on Friday**: If the execution occurs on Friday, the prisoner, having ruled out all days, would be surprised because his reasoning led him to believe it was impossible. Thus, the execution on Friday is a surprise, resolving the paradox.
+
+**Conclusion**: The execution on Friday was indeed a surprise to the prisoner, as his logical deductions led him to believe it could not happen, thereby fulfilling the condition of surprise.

@@ -1,0 +1,13 @@
+This scenario is a variation of the "unexpected hanging paradox." Let's analyze the prisoner's reasoning:
+
+1. If the prisoner reaches Thursday evening and has not been executed yet, he would reason that the execution must happen on Friday. This is because Friday is the last possible day, hence it wouldn't be a surprise if he was hanged on Friday.
+
+2. Therefore, the prisoner concludes that he cannot be hanged on Friday.
+
+3. Moving backwards, if the prisoner reaches Wednesday evening and has not been executed yet, he would reason that he cannot be hanged on Thursday, as being executed on Thursday would not be a surprise (since he has already ruled out Friday).
+
+4. The prisoner applies this reasoning to each preceding day of the week, concluding that he cannot be surprised by the hanging on any day of the week.
+
+5. Paradoxically, the prisoner is executed on Friday, and it is indeed a surprise because he had ruled out that day, believing he could not be executed then.
+
+Thus, the execution was indeed a surprise, as the prisoner’s logical deduction led him to believe no execution would happen. The paradox arises from the self-referential nature of the "surprise" condition, which defies straightforward logical deduction.

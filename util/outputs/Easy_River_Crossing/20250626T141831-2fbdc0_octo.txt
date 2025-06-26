@@ -1,0 +1,17 @@
+To solve the river crossing puzzle, the farmer must transport the wolf, goat, and cabbage across the river without any of them being eaten. Here's a step-by-step solution:
+
+1. **First Trip:** The farmer takes the goat across the river and leaves it on the other side.
+   
+2. **Second Trip:** The farmer returns alone to the original side.
+
+3. **Third Trip:** The farmer takes the wolf across the river.
+
+4. **Fourth Trip:** The farmer leaves the wolf on the other side but takes the goat back with him to the original side.
+
+5. **Fifth Trip:** The farmer leaves the goat on the original side and takes the cabbage across the river.
+
+6. **Sixth Trip:** The farmer leaves the cabbage with the wolf on the other side and returns alone to the original side.
+
+7. **Seventh Trip:** Finally, the farmer takes the goat across the river one last time.
+
+By following these steps, the farmer successfully transports all three items across the river without any of them being eaten.

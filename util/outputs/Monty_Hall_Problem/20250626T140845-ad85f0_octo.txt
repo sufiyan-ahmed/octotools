@@ -1,0 +1,19 @@
+The Monty Hall problem is a probability puzzle that involves making a strategic decision to maximize your chances of winning a car. Here's a clear breakdown of the process and the optimal strategy:
+
+### Scenario Setup:
+1. **Three Doors**: You have three doors to choose from: Door #1, Door #2, and Door #3.
+2. **Prizes**: Behind one door is a car, and behind the other two are goats.
+3. **Initial Choice**: You pick Door #1.
+4. **Monty's Action**: Monty, who knows what's behind each door, opens another door (Door #2) to reveal a goat.
+5. **Decision Point**: You can either stick with your initial choice (Door #1) or switch to the remaining unopened door (Door #3).
+
+### Probability Analysis:
+- **Initial Choice**: When you first pick a door, there's a 1/3 chance that you picked the car and a 2/3 chance that you picked a goat.
+- **Monty's Reveal**: Monty will always reveal a goat, which doesn't change the initial probabilities but provides additional information.
+
+### Optimal Strategy:
+- **If You Stick with Door #1**: The probability that the car is behind Door #1 remains 1/3.
+- **If You Switch to Door #3**: The probability that the car is behind Door #3 is 2/3. This is because if your initial choice was a goat (2/3 probability), Monty's action of revealing a goat behind Door #2 means the car must be behind Door #3.
+
+### Conclusion:
+The optimal strategy in the Monty Hall problem is to always switch doors after Monty reveals a goat. By switching, you increase your chances of winning the car from 1/3 to 2/3. This strategy leverages the initial probability distribution and Monty's action to maximize your chances of success.
